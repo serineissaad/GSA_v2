@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
-        <item android:id="@+id/account"
+        <item
+            android:id="@+id/account"
             android:icon="@drawable/ic_account_as"
-            android:title="My Account"/>
+            android:title="My Account" />
 
-        <item android:id="@+id/add"
+        <item
+            android:id="@+id/add"
             android:icon="@drawable/ic_add"
-            android:title="Activate"/>
+            android:title="Activate" />
 
-        <item android:id="@+id/search"
+        <item
+            android:id="@+id/search"
             android:icon="@drawable/ic_searchass"
-            android:title="Search and Update"/>
+            android:title="Search and Update" />
 
-        <item android:id="@+id/sinistre"
+        <item
+            android:id="@+id/sinistre"
             android:icon="@drawable/ic_new_sin_results"
-            android:title="Sinistre News"/>
+            android:title="Sinistres News" />
+
+        <item android:title="Interaction">
+            <menu>
+                <item
+                    android:id="@+id/send"
+                    android:icon="@drawable/ic_send"
+                    android:title="Send" />
+                <item
+                    android:id="@+id/repport"
+                    android:icon="@drawable/ic_report"
+                    android:title="Repport" />
+            </menu>
+        </item>
 
     </group>
 </menu>

@@ -11,7 +11,7 @@
         android:theme="@style/Theme.GSA">
         <activity
             android:name=".signupas"
-            android:exported="true">
+            android:exported="true" ><!--android:theme="@style/Theme.GSA.NoActionBar"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
