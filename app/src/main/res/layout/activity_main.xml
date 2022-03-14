@@ -42,12 +42,22 @@
         android:layout_below="@+id/email"
         android:inputType="date"
         />
+    <Button
+        android:id="@+id/btnext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dob"
+        android:layout_marginTop="32dp"
+        android:textSize="24dp"
+        android:text="Add"
+
+        />
 
     <Button
         android:id="@+id/btninsert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dob"
+        android:layout_below="@+id/btnext"
         android:layout_marginTop="32dp"
         android:textSize="24dp"
         android:text="Add"

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText name,email,dob;
-    Button insert,update,delete,view;
+    Button insert,update,delete,view,next;
     DB1Helper DB;
 
     @Override
@@ -29,13 +29,20 @@ public class MainActivity extends AppCompatActivity {
         update=findViewById(R.id.btnupdate);
         delete=findViewById(R.id.btndelete);
         view=findViewById(R.id.btnview);
+        next=(Button) findViewById(R.id.btnext);
         DB= new DB1Helper(this);
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                opensignupas();
+            }
+        });
 
         insert.setOnClickListener(new View.OnClickListener(){
                                       @Override
                                       public void onClick(View view) {
-                                          opensignup();
-            /*
+
             String nametxt=name.getText().toString();
             String emailtxt=email.getText().toString();
             String dobtxt=dob.getText().toString();
@@ -43,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             if(checkinsert==true)
                 Toast.makeText(MainActivity.this,"New Entry Inserted",Toast.LENGTH_SHORT).show();
             else
-                Toast.makeText(MainActivity.this,"Error while inserting",Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(MainActivity.this,"Error while inserting",Toast.LENGTH_SHORT).show();
                                       }
                                   }
         );
@@ -100,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void opensignup(){
+    public void opensignupas(){
         Intent intent= new Intent(this,signupas.class);
         startActivity(intent);
     }

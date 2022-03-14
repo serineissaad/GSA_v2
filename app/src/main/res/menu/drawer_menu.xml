@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/account"
+            android:icon="@drawable/ic_account_as"
+            android:title="My Account"/>
+
+        <item android:id="@+id/add"
+            android:icon="@drawable/ic_add"
+            android:title="Activate"/>
+
+        <item android:id="@+id/search"
+            android:icon="@drawable/ic_searchass"
+            android:title="Search and Update"/>
+
+        <item android:id="@+id/sinistre"
+            android:icon="@drawable/ic_new_sin_results"
+            android:title="Sinistre News"/>
+
+    </group>
+</menu>
