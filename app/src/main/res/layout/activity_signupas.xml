@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/texttitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sign Up"
+        android:textSize="10dp"/>
+
+    <EditText
+        android:id="@+id/noms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/texttitle"
+        android:layout_marginTop="5dp"
+        android:hint="nom societe"
+        android:inputType="textPersonName"
+        android:textSize="15dp"/>
+
+    <EditText
+        android:id="@+id/emails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="email societe"
+        android:textSize="25dp"
+        android:layout_below="@+id/noms"
+        android:inputType="textEmailAddress"
+        />
+    <EditText
+        android:id="@+id/prenoma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="votre prenom"
+        android:textSize="25dp"
+        android:layout_below="@+id/emails"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/noma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/prenoma"
+        android:layout_marginTop="5dp"
+        android:hint="votre nom"
+        android:inputType="textPersonName"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/emaila"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noma"
+        android:layout_marginTop="5dp"
+        android:hint="votre email"
+        android:inputType="textEmailAddress"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emaila"
+        android:layout_marginTop="5dp"
+        android:hint="mot de passe"
+        android:inputType="textWebPassword"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/btnsignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pass"
+        android:layout_marginTop="5dp"
+        android:text="sign up"
+        android:textSize="25dp" />
+
+</RelativeLayout>
