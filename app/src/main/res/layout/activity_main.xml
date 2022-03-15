@@ -49,7 +49,7 @@
         android:layout_below="@+id/dob"
         android:layout_marginTop="32dp"
         android:textSize="24dp"
-        android:text="Next"
+        android:text="Add"
 
         />
 
