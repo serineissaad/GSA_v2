@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".MainActivity">
+    android:theme="@style/Theme.GSA.NoActionBar"
+    tools:context=".signupas">
 
     <TextView
         android:id="@+id/texttitle"
