@@ -89,8 +89,9 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
 
         progressDialog.setMessage("Regestering user..");
         progressDialog.show();
-        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTER,
-                response -> {
+        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
                     Toast.makeText(signupas.this, "enter listener", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     try {
@@ -102,6 +103,7 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
                         Toast.makeText(signupas.this, "in catch jason", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
+            }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -112,7 +114,7 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<>();
+                Map<String,String> params=new HashMap<String, String>();
                 Toast.makeText(signupas.this, "in params", Toast.LENGTH_SHORT).show();
                 params.put("noms",nomstxt);
                 params.put("emails",emailstxt);
@@ -123,7 +125,7 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
             return params;
             }
         };
-        RequestQueue rq= Volley.newRequestQueue(this);
+        RequestQueue rq= Volley.newRequestQueue(signupas.this);
         Toast.makeText(signupas.this, "about to add", Toast.LENGTH_SHORT).show();
         rq.add(str);
     }
