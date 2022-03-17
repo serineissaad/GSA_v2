@@ -92,15 +92,15 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
         StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                    Toast.makeText(signupas.this, "enter listener", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(signupas.this, "enter listener", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     try {
                         JSONObject job=new JSONObject(response);
-                        Toast.makeText(signupas.this, "before json toast", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(signupas.this, "before json toast", Toast.LENGTH_SHORT).show();
                         Toast.makeText(getApplicationContext(), job.getString("message"),Toast.LENGTH_SHORT).show();
-                        Toast.makeText(signupas.this, "after json toast", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(signupas.this, "after json toast", Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
-                        Toast.makeText(signupas.this, "in catch jason", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(signupas.this, "in catch jason", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
             }
@@ -115,7 +115,7 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<String, String>();
-                Toast.makeText(signupas.this, "in params", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(signupas.this, "in params", Toast.LENGTH_SHORT).show();
                 params.put("noms",nomstxt);
                 params.put("emails",emailstxt);
                 params.put("prenoma",prenomatxt);
@@ -125,9 +125,10 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
             return params;
             }
         };
-        RequestQueue rq= Volley.newRequestQueue(signupas.this);
-        Toast.makeText(signupas.this, "about to add", Toast.LENGTH_SHORT).show();
-        rq.add(str);
+        //RequestQueue rq= Volley.newRequestQueue(signupas.this);
+        //Toast.makeText(signupas.this, "about to add", Toast.LENGTH_SHORT).show();
+        //rq.add(str);
+        requesthandler.getInstance(this).addToRequestQueue(str);
     }
 
     @Override
