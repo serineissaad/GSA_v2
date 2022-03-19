@@ -92,15 +92,18 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
         StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                    //Toast.makeText(signupas.this, "enter listener", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     try {
                         JSONObject job=new JSONObject(response);
-                        //Toast.makeText(signupas.this, "before json toast", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(), job.getString("message"),Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(signupas.this, "after json toast", Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        //Toast.makeText(signupas.this, "in catch jason", Toast.LENGTH_SHORT).show();
+                        if(!job.getBoolean("error")) {
+                            Toast.makeText(signupas.this, "in if", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), job.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(signupas.this, "in else", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),job.getString("message"),Toast.LENGTH_LONG).show();
+                        }
+                        } catch (JSONException e) {
                         e.printStackTrace();
                     }
             }

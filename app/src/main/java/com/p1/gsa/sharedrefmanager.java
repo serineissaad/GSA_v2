@@ -1,6 +1,7 @@
 package com.p1.gsa;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -8,13 +9,15 @@ import com.android.volley.toolbox.Volley;
 
 public class sharedrefmanager {
         private static sharedrefmanager instance;
-        private RequestQueue requestQueue;
-        //private ImageLoader imageLoader;
         private static Context ctx;
+        private  static final  String shared_pref_name="mysharedref";
+        private  static final  String key_noms="noms";
+        private  static final  String key_emaila="emaila";
+        private  static final  String key_id="id";
 
-        private sharedrefmanager(Context context) {
+
+    private sharedrefmanager(Context context) {
             ctx = context;
-            requestQueue = getRequestQueue();
         }
 
         public static synchronized sharedrefmanager getInstance(Context context) {
@@ -24,17 +27,28 @@ public class sharedrefmanager {
             return instance;
         }
 
-        public RequestQueue getRequestQueue() {
-            if (requestQueue == null) {
-                // getApplicationContext() is key, it keeps you from leaking the
-                // Activity or BroadcastReceiver if someone passes one in.
-                requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
-            }
-            return requestQueue;
+        public boolean sadminlogin(int id,String noms,String emaila){
+            SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
+            SharedPreferences.Editor edt=shps.edit();
+            edt.putInt(key_id,id);
+            edt.putString(key_noms,noms);
+            edt.putString(key_emaila,emaila);
+            edt.apply();
+            return true;
         }
 
-        public <T> void addToRequestQueue(Request<T> req) {
-            getRequestQueue().add(req);
+        public boolean isloggedin(){
+        SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
+        if(shps.getString(key_emaila,null)!=null){
+            return true;
+            } return false;
+        }
+        public boolean logout(){
+            SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
+            SharedPreferences.Editor edt=shps.edit();
+            edt.clear();
+            edt.apply();
+            return true;
         }
 
 }
