@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GSA">
         <activity
+            android:name=".sadminpage"
+            android:exported="false" />
+        <activity
             android:name=".signupas"
             android:exported="false" />
         <activity

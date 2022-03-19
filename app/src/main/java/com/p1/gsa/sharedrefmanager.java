@@ -40,6 +40,7 @@ public class sharedrefmanager {
         public boolean isloggedin(){
         SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
         if(shps.getString(key_emaila,null)!=null){
+
             return true;
             } return false;
         }

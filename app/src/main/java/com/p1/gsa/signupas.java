@@ -1,6 +1,7 @@
 package com.p1.gsa;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -65,6 +66,12 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signupas);
 
+        if(sharedrefmanager.getInstance(this).isloggedin()){
+            finish();
+            startActivity(new Intent(this,sadminpage.class));
+            return;
+        }
+
         noms= findViewById(R.id.noms);
         emails= findViewById(R.id.emails);
         prenoma= findViewById(R.id.prenoma);
@@ -98,6 +105,8 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
                         if(!job.getBoolean("error")) {
                             //Toast.makeText(signupas.this, "in if", Toast.LENGTH_SHORT).show();
                             Toast.makeText(getApplicationContext(), job.getString("message"), Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(),login.class));
+                            finish();
                         }
                         else{
                             //Toast.makeText(signupas.this, "in else", Toast.LENGTH_SHORT).show();

@@ -36,6 +36,12 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if(sharedrefmanager.getInstance(this).isloggedin()){
+            finish();
+            startActivity(new Intent(this,sadminpage.class));
+            return;
+        }
+
         emaila=(EditText) findViewById(R.id.emaila);
         pass=(EditText) findViewById(R.id.pass);
         btnsignup =(TextView) findViewById(R.id.title3);
@@ -67,10 +73,12 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                                         obj.getString("noms"),
                                         obj.getString("emaila")
                                 );
-                                Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(),sadminpage.class));
+                                finish();
                             }
                             else{
-                                Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -103,8 +111,6 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         if(view==btnsignup){
             startActivity(new Intent(this,signupas.class));}
         if(view==btnlogin){
-            Toast.makeText(login.this, "login clicked", Toast.LENGTH_SHORT).show();
-
             loging();
         }
     }
