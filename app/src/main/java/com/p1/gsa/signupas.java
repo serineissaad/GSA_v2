@@ -96,18 +96,18 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
                     try {
                         JSONObject job=new JSONObject(response);
                         if(!job.getBoolean("error")) {
-                            Toast.makeText(signupas.this, "in if", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(), job.getString("message"), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(signupas.this, "in if", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), job.getString("message"), Toast.LENGTH_LONG).show();
                         }
                         else{
-                            Toast.makeText(signupas.this, "in else", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(signupas.this, "in else", Toast.LENGTH_SHORT).show();
                             Toast.makeText(getApplicationContext(),job.getString("message"),Toast.LENGTH_LONG).show();
                         }
                         } catch (JSONException e) {
                         e.printStackTrace();
                     }
             }
-                }, new Response.ErrorListener() {
+            }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.hide();
