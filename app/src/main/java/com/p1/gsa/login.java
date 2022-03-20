@@ -73,6 +73,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                                         obj.getString("noms"),
                                         obj.getString("emaila")
                                 );
+
                                 Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),sadminpage.class));
                                 finish();

@@ -16,10 +16,16 @@
             android:name=".sadminpage"
             android:exported="false" />
         <activity
-            android:name=".signupas"
+            android:name=".nav_header"
             android:exported="false" />
         <activity
             android:name=".login"
+            android:exported="false" />
+        <activity
+            android:name=".signupas"
+            android:exported="false" />
+        <activity
+            android:name=".nav_draw"
             android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

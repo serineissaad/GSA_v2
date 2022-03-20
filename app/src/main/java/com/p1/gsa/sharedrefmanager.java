@@ -52,4 +52,12 @@ public class sharedrefmanager {
             return true;
         }
 
-}
+        String getemaila(){
+            SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
+            return shps.getString(key_emaila,null);
+        }
+        String getnoms(){
+            SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
+            return shps.getString(key_noms,null);
+        }
+    }
