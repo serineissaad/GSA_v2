@@ -1,6 +1,7 @@
 package com.p1.gsa;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,36 +27,8 @@ import java.util.Map;
 
 public class signupas extends AppCompatActivity implements View.OnClickListener {
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
 
-        //Start ProgressBar first (Set visibility VISIBLE)
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                //Starting Write and Read data with URL
-                //Creating array for parameters
-                String[] field = new String[2];
-                field[0] = "param-1";
-                field[1] = "param-2";
-                //Creating array for data
-                String[] data = new String[2];
-                data[0] = "data-1";
-                data[1] = "data-2";
-                PutData putData = new PutData("https://projects.vishnusivadas.com/AdvancedHttpURLConnection/putDataTest.php", "POST", field, data);
-                if (putData.startPut()) {
-                    if (putData.onComplete()) {
-                        String result = putData.getResult();
-                        //End ProgressBar (Set visibility to GONE)
-                        Log.i("PutData", result);
-                    }
-                }
-                //End Write and Read data with URL
-            }
-        });*/
+
 
     EditText prenoma,noma,emaila,pass,emails,noms;
     Button btnsignup;
@@ -120,8 +93,8 @@ public class signupas extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.hide();
-                Toast.makeText(signupas.this, "error listener", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(signupas.this, "Cet utilisateur existe déja.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
