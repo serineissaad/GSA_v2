@@ -58,12 +58,24 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnlogout"
+            android:id="@+id/btnaddadmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_below="@+id/email"
             android:layout_marginTop="170dp"
+            android:textColorHighlight="@color/cardview_dark_background"
+            android:text="Add New Admin"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnlogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/email"
+            android:layout_marginTop="30dp"
             android:textColorHighlight="@color/cardview_dark_background"
             android:text="Log out"
             android:textSize="30dp"

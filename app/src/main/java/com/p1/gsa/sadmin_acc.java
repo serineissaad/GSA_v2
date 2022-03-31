@@ -28,6 +28,7 @@ public class sadmin_acc extends Fragment {
     private String mParam2;
     private TextView email, nom,id;
     Button btnlogout;
+    Button btnaddadmin;
     public sadmin_acc() {
         // Required empty public constructor
     }
@@ -70,6 +71,7 @@ public class sadmin_acc extends Fragment {
         email=v.findViewById(R.id.email);
         nom=v.findViewById(R.id.nom);
         btnlogout=v.findViewById(R.id.btnlogout);
+        btnaddadmin=v.findViewById(R.id.btnaddadmin);
         btnlogout.setOnClickListener(this::onClick);
 
         email.setText(sharedrefmanager.getInstance(getContext()).getemaila());
@@ -85,6 +87,12 @@ public class sadmin_acc extends Fragment {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             getActivity().finish();
+        }
+
+        if(view==btnaddadmin){
+            Intent intent=new Intent(view.getContext(),signupas.class);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 

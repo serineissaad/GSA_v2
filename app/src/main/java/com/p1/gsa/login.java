@@ -38,11 +38,11 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(sharedrefmanager.getInstance(this).isloggedin()){
-            finish();
-            startActivity(new Intent(this,sadminpage.class));
-            return;
-        }
+       // if(sharedrefmanager.getInstance(this).isloggedin()){
+         //   finish();
+           // startActivity(new Intent(this,sadminpage.class));
+            //return;
+        //}
 
         emaila=(EditText) findViewById(R.id.emaila);
         pass=(EditText) findViewById(R.id.pass);
@@ -133,7 +133,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                                 );
 
                                 Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),signupas.class));
+                                startActivity(new Intent(getApplicationContext(),signupass.class));
                                 finish();
                             }
                             else{

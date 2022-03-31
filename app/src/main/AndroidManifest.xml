@@ -25,6 +25,9 @@
             android:name=".signupas"
             android:exported="false" />
         <activity
+            android:name=".signupass"
+            android:exported="false" />
+        <activity
             android:name=".login"
             android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
             <intent-filter>
