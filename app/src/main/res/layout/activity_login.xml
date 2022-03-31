@@ -75,5 +75,12 @@
         android:text="sign in"
         android:textSize="20dp" />
 
+    <Switch
+        android:id="@+id/switchadmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btntry"
+        android:text="Admin" />
+
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     TextView btnsignup;
     EditText emaila,pass;
     Button btnlogin;
+    Switch admin;
     private ProgressDialog progressDialog;
 
 
@@ -46,6 +48,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         pass=(EditText) findViewById(R.id.pass);
         btnsignup =(TextView) findViewById(R.id.title3);
         btnlogin=(Button) findViewById(R.id.btnlogin);
+        admin=(Switch) findViewById(R.id.switchadmin);
         btnsignup.setOnClickListener(this);
 
         progressDialog=new ProgressDialog(this);
@@ -107,12 +110,70 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         requesthandler.getInstance(this).addToRequestQueue(str);
     }
 
+    private void logingass(){ final String emailatxt=emaila.getText().toString().trim();
+        final String passtxt=pass.getText().toString().trim();
+
+        progressDialog.setMessage("Loading..");
+        progressDialog.show();
+
+        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_LOGINASS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            Toast.makeText(getApplicationContext(),"GETTING OBJ",Toast.LENGTH_SHORT).show();
+                            JSONObject obj=new JSONObject(response);
+                            Toast.makeText(getApplicationContext(),"obj gotten",Toast.LENGTH_SHORT).show();
+                            if(!obj.getBoolean("error")){
+                                sharedrefmanager.getInstance(getApplicationContext()).assurelogin(
+                                        obj.getInt("mat"),
+                                        obj.getString("noma"),
+                                        obj.getString("prenoma")
+                                );
+
+                                Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(),signupas.class));
+                                finish();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),obj.getString("message"),Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(login.this, "error listener", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"error listener login",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        }
+        ){
+            //@Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+                params.put("emaila",emailatxt);
+                params.put("passworda",passtxt);
+                return params;
+            }
+        };
+        requesthandler.getInstance(this).addToRequestQueue(str);
+    }
+
     @Override
     public void onClick(View view) {
         if(view==btnsignup){
             startActivity(new Intent(this,signupas.class));}
         if(view==btnlogin){
-            loging();
+            if(admin.isChecked())
+                loging();
+            else
+                logingass();
         }
     }
 }

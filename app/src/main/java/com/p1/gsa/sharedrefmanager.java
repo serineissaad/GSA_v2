@@ -37,6 +37,16 @@ public class sharedrefmanager {
             return true;
         }
 
+        public boolean assurelogin(int mat,String noma,String prenoma){
+            SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
+            SharedPreferences.Editor edt=shps.edit();
+            edt.putInt(key_id,mat);
+            edt.putString(key_noms,noma);
+            edt.putString(key_emaila,prenoma);
+            edt.apply();
+            return true;
+        }
+
         public boolean getass(String noms,String emails,String prenoma,String noma, String emaila){
             SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
             SharedPreferences.Editor edt=shps.edit();
