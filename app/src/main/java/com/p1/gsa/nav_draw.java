@@ -72,6 +72,10 @@ public class nav_draw extends AppCompatActivity implements NavigationView.OnNavi
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new sadmin_act()).addToBackStack(null).commit();
                 break;
+            case R.id.search:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new sadmin_sear_up()).addToBackStack(null).commit();
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
