@@ -1,18 +1,10 @@
 package com.p1.gsa;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
+public class myadapter_act_del extends RecyclerView.Adapter<myadapter_act_del.myviewholder> {
 
     ArrayList<assure> asslist;
     ArrayList<assure> asslistsear;
@@ -32,7 +23,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
     OnItemClickListener listener;
     String emailatxt;
 
-    public myadapter(ArrayList<assure> asslist) {
+    public myadapter_act_del(ArrayList<assure> asslist) {
         this.asslist = asslist;
         asslistsear=new ArrayList<>(asslist);
     }
@@ -41,41 +32,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
         return makeText(context,text,duration);
     };
 
-    /*@Override
-    public Filter getFilter() {
-        return searfilter;
-    }
-
-    private Filter searfilter=new Filter(){
-
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<assure> filteredlist=new ArrayList<>();
-
-            if (charSequence == null || charSequence.length() == 0) {
-                filteredlist.addAll(asslistsear);
-            } else {
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-                for (assure item : asslistsear) {
-                    if (item.getEmaila().toLowerCase().contains(filterPattern)
-                    || item.getNoms().toLowerCase().contains(filterPattern)) {
-                        filteredlist.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredlist;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            asslist.clear();
-            asslist.addAll((List) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };*/
 
     public interface OnItemClickListener{
         void ondelete(int position);
@@ -88,15 +44,25 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ass_row,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ass_row_ad,parent,false);
         myviewholder v=new myviewholder(view,listener);
         return  v;
     }
 
     @Override
     public void onBindViewHolder(@NonNull myviewholder holder, int position) {
-        holder.noms.setText(asslist.get(position).getNoms());
+        holder.noma.setText(asslist.get(position).getNoma());
         holder.emaila.setText(asslist.get(position).getEmaila());
+        holder.adressea.setText(asslist.get(position).getAdressea());
+        holder.agencea.setText(asslist.get(position).getAgencea());
+        holder.martyv.setText(asslist.get(position).getMartyv());
+        holder.numpolice.setText(asslist.get(position).getNumpolice());
+        holder.immatriv.setText(asslist.get(position).getImmatriv());
+        holder.prenoma.setText(asslist.get(position).getPrenoma());
+        holder.datevala.setText(asslist.get(position).getDatevala());
+        holder.datevald.setText(asslist.get(position).getDatevald());
+        holder.steassurance.setText(asslist.get(position).getSteassurance());
+
         /*sea.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -139,13 +105,24 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
     }
 
     class myviewholder extends RecyclerView.ViewHolder{
-        TextView emaila,noms;
+        TextView emaila,noma,prenoma,agencea,immatriv,numpolice,adressea,datevald,datevala,steassurance,martyv;
         RelativeLayout lncontainor;
         public myviewholder(@NonNull View itemView,final OnItemClickListener lst) {
             super(itemView);
             emaila=itemView.findViewById(R.id.emailass);
-            noms=itemView.findViewById(R.id.nomass);
+            noma=itemView.findViewById(R.id.nomass);
+            immatriv=itemView.findViewById(R.id.immatriv);
+            numpolice=itemView.findViewById(R.id.numpol);
+            martyv=itemView.findViewById(R.id.martyv);
+            datevala=itemView.findViewById(R.id.datea);
+            datevald=itemView.findViewById(R.id.dated);
+            agencea=itemView.findViewById(R.id.agencea);
+            prenoma=itemView.findViewById(R.id.prenomass);
+            adressea=itemView.findViewById(R.id.adressea);
+            steassurance=itemView.findViewById(R.id.steassurance);
+
             lncontainor=itemView.findViewById(R.id.asscontainor);
+
             imgdelete=itemView.findViewById(R.id.imgdelete);
 
            imgdelete.setOnClickListener(new View.OnClickListener() {

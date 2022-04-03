@@ -11,9 +11,10 @@ public class sharedrefmanager {
         private static sharedrefmanager instance;
         private static Context ctx;
         private  static final  String shared_pref_name="mysharedref";
-        private  static final  String key_noms="noms";
+        private  static final  String key_noma="noma";
+        private  static final  String key_mat="immatriv";
         private  static final  String key_emaila="emaila";
-        private  static final  String key_id="id";
+        //private  static final  String key_id="id";
 
 
     private sharedrefmanager(Context context) {
@@ -27,21 +28,21 @@ public class sharedrefmanager {
             return instance;
         }
 
-        public boolean sadminlogin(int id,String noms,String emaila){
+        public boolean sadminlogin(int immatriv,String noma,String emaila){
             SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
             SharedPreferences.Editor edt=shps.edit();
-            edt.putInt(key_id,id);
-            edt.putString(key_noms,noms);
+            edt.putInt(key_mat,immatriv);
+            edt.putString(key_noma,noma);
             edt.putString(key_emaila,emaila);
             edt.apply();
             return true;
         }
 
-        public boolean assurelogin(int mat,String noma,String prenoma){
+        public boolean assurelogin(int immatriv,String noma,String prenoma){
             SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
             SharedPreferences.Editor edt=shps.edit();
-            edt.putInt(key_id,mat);
-            edt.putString(key_noms,noma);
+            edt.putInt(key_mat,immatriv);
+            edt.putString(key_noma,noma);
             edt.putString(key_emaila,prenoma);
             edt.apply();
             return true;
@@ -50,7 +51,7 @@ public class sharedrefmanager {
         public boolean getass(String noms,String emails,String prenoma,String noma, String emaila){
             SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
             SharedPreferences.Editor edt=shps.edit();
-            edt.putString(key_emaila,emaila);
+                                                                                                                                                                                                                                                                                                                                                                              edt.putString(key_emaila,emaila);
             edt.apply();
             return true;
         }
@@ -74,8 +75,8 @@ public class sharedrefmanager {
             SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
             return shps.getString(key_emaila,null);
         }
-        String getnoms(){
+        String getnoma(){
             SharedPreferences shps=ctx.getSharedPreferences(shared_pref_name,Context.MODE_PRIVATE);
-            return shps.getString(key_noms,null);
+            return shps.getString(key_noma,null);
         }
     }

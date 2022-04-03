@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:elevation="4dp">
+    <!--app:cardUseCompatPadding="true"-->
+
+
+    <RelativeLayout
+        android:id="@+id/asscontainor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <ImageView
+            android:id="@+id/imgdelete"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_marginLeft="250dp"
+            android:layout_toRightOf="@+id/immatriv"
+            android:src="@drawable/ic_add" />
+
+        <TextView
+            android:id="@+id/nomass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:text="nom ass:"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/prenomass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/nomass"
+            android:inputType="text"
+            android:text="prenom"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/steassurance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prenomass"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="steassurance"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/immatriv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/steassurance"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="immatriv"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/numpol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/immatriv"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="numpol"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/martyv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/numpol"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="martyv"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/datea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/martyv"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="dated"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/dated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/martyv"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/datea"
+            android:inputType="text"
+            android:text="datea"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/agencea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dated"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="agence"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/adressea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/agencea"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="adresse"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/emailass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adressea"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="email"
+            android:textSize="25dp" />
+
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

@@ -43,7 +43,7 @@ public class nav_draw extends AppCompatActivity implements NavigationView.OnNavi
         //btnlogout.setOnClickListener((View.OnClickListener) this);
 
         email.setText(sharedrefmanager.getInstance(this).getemaila());
-        name.setText(sharedrefmanager.getInstance(this).getnoms());
+        name.setText(sharedrefmanager.getInstance(this).getnoma());
         naview.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,

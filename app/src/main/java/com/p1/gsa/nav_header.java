@@ -18,6 +18,6 @@ public class nav_header extends AppCompatActivity {
         name=(TextView)findViewById(R.id.name);
 
         email.setText(sharedrefmanager.getInstance(this).getemaila());
-        name.setText(sharedrefmanager.getInstance(this).getnoms());
+        name.setText(sharedrefmanager.getInstance(this).getnoma());
     }
 }

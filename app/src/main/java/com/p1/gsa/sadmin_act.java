@@ -1,20 +1,14 @@
 package com.p1.gsa;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +33,7 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM2 = "param2";
 
     RecyclerView recyclerView;
-    myadapter adpt;
+    myadapter_act_del adpt;
     ImageView btndelete;
     String emailass;
     ArrayList<assure> asslist;
@@ -114,9 +108,18 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
 
                         for (int i = 0; i<array.length(); i++){
                             JSONObject obj=array.getJSONObject(i);
-                            String noms =obj.getString("noms");
+                            String noma =obj.getString("noma");
+                            String prenoma=obj.getString("prenoma");
+                            String adressea=obj.getString("adressea");
+                            String steassurance=obj.getString("steassurance");
+                            String numpolice= String.valueOf(obj.getInt("numpolice"));
+                            String datevald=obj.getString("datevald");
+                            String datevala=obj.getString("datevala");
+                            String martyv= String.valueOf(obj.getInt("martyv"));
+                            String immatriv= String.valueOf(obj.getInt("immatriv"));
+                            String agencea=obj.getString("agencea");
                             String emaila=obj.getString("emaila");
-                            assure ass=new assure(emaila,noms);
+                            assure ass=new assure(noma,prenoma,adressea,steassurance,numpolice,datevald,datevala,martyv,immatriv,agencea,emaila);
                             asslist.add(ass);
                         }
                     }
@@ -126,9 +129,9 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
-                adpt=new myadapter(asslist);
+                adpt=new myadapter_act_del(asslist);
                 recyclerView.setAdapter(adpt);
-                adpt.setOnItemClickListener(new myadapter.OnItemClickListener(){
+                adpt.setOnItemClickListener(new myadapter_act_del.OnItemClickListener(){
                     @Override
                     public void ondelete(int position) {
                         //emailass= asslist.get(position).getEmaila();

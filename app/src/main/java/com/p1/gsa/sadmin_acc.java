@@ -75,7 +75,7 @@ public class sadmin_acc extends Fragment {
         btnlogout.setOnClickListener(this::onClick);
 
         email.setText(sharedrefmanager.getInstance(getContext()).getemaila());
-        nom.setText(sharedrefmanager.getInstance(getContext()).getnoms());
+        nom.setText(sharedrefmanager.getInstance(getContext()).getnoma());
 
         return v;
     }
