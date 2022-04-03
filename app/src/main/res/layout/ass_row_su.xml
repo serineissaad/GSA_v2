@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:elevation="4dp">
+    <!--app:cardUseCompatPadding="true"-->
+
+
+    <RelativeLayout
+        android:id="@+id/asscontainor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/nomass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:text="Aucun Nom"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/prenomass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/nomass"
+            android:inputType="text"
+            android:text="Aucun Prenom"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/immatriv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nomass"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="Aucun Matricule"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/emailass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/immatriv"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="email"
+            android:textSize="25dp" />
+
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>
