@@ -1,15 +1,20 @@
 package com.p1.gsa;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -18,10 +23,8 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
 
     ArrayList<assure> asslist;
     ArrayList<assure> asslistsear;
-    //LinearLayout lnlyt;
     ImageView imgdelete;
     OnItemClickListener listener;
-    String emailatxt;
 
     public myadapter_sear_up(ArrayList<assure> asslist) {
         this.asslist = asslist;
@@ -62,6 +65,31 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
         //holder.datevala.setText(asslist.get(position).getDatevala());
         //holder.datevald.setText(asslist.get(position).getDatevald());
         //holder.steassurance.setText(asslist.get(position).getSteassurance());
+
+        holder.lncontainor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment nextfrag = new sadmin_sear_up_1ass();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,nextfrag).addToBackStack(null)
+                        .commit();
+
+                int position=holder.getAdapterPosition();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("noma",asslist.get(position).getNoma());
+                bundle.putString("adressea",asslist.get(position).getAdressea());
+                bundle.putString("steassurance",asslist.get(position).getSteassurance());
+                bundle.putString("martyv",asslist.get(position).getMartyv());
+                bundle.putString("numpolice",asslist.get(position).getNumpolice());
+                bundle.putString("immatriv",asslist.get(position).getImmatriv());
+                bundle.putString("emaila",asslist.get(position).getEmaila());
+                bundle.putString("datevala",asslist.get(position).getDatevala());
+                bundle.putString("datevald",asslist.get(position).getDatevald());
+                nextfrag.setArguments(bundle);
+            }
+        });
     }
 
     @Override
@@ -85,6 +113,7 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
             prenoma=itemView.findViewById(R.id.prenomass);
             adressea=itemView.findViewById(R.id.adressea);
             steassurance=itemView.findViewById(R.id.steassurance);
+
 
             lncontainor=itemView.findViewById(R.id.asscontainor);
 

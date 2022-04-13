@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sadmin_sear_up_1ass">
+
+        <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:id="@+id/sear_up_1ass"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_account_as" />
+
+        <TextView
+            android:id="@+id/noma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="15dp"
+            android:text="nom"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/prenoma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/noma"
+            android:text="prenom"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/adressea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/noma"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:text="adresse"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/steassurance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/adressea"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:text="steassurance"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/numpol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/steassurance"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:text="numpolice"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/datevald"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/numpol"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="30dp"
+            android:text="datevald"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/datevala"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/numpol"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/datevald"
+            android:text="datevala"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/martyv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/datevald"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:text="marque"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/immatriv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/martyv"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:text="matricule"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/emaila"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/immatriv"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:text="email"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/btnupdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emaila"
+            android:layout_marginTop="100dp"
+            android:layout_toRightOf="@+id/btndelete"
+            android:layout_marginLeft="30dp"
+            android:text="modifier"
+            android:textColorHighlight="@color/cardview_dark_background"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/btndelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emaila"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginTop="100dp"
+            android:text="Supprimer"
+            android:textColorHighlight="@color/cardview_dark_background"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+</FrameLayout>
