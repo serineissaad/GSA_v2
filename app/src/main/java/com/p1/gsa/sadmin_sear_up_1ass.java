@@ -1,5 +1,6 @@
 package com.p1.gsa;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class sadmin_sear_up_1ass extends Fragment {
 
@@ -23,6 +38,7 @@ public class sadmin_sear_up_1ass extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Button btndelete,btnupdate;
 
     public sadmin_sear_up_1ass() {
     }
@@ -62,6 +78,11 @@ public class sadmin_sear_up_1ass extends Fragment {
         datevald=v.findViewById(R.id.datevald);
         steassurance=v.findViewById(R.id.steassurance);
         numpol=v.findViewById(R.id.numpol);
+        btndelete=v.findViewById(R.id.btndelete);
+        btnupdate=v.findViewById(R.id.btnupdate);
+
+        btnupdate.setOnClickListener(this::onClick);
+        btndelete.setOnClickListener(this::onClick);
 
         setass();
 
@@ -82,5 +103,95 @@ public class sadmin_sear_up_1ass extends Fragment {
         datevald.setText(getArguments().getString("datevald"));
         datevala.setText(getArguments().getString("datevala"));
         numpol.setText(getArguments().getString("numpolice"));
+    }
+
+    private void updateass(){
+        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_UPDATEASS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject job=new JSONObject(response);
+                    if(!job.getBoolean("error")) {
+                        Toast.makeText(getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getContext(), job.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "error listener", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+                //Toast.makeText(signupas.this, "in params", Toast.LENGTH_SHORT).show();
+                //params.put("noma", String.valueOf(noma));
+                //params.put("emaila", String.valueOf(emaila));
+                //params.put("prenoma", String.valueOf(prenoma));
+                //params.put("adressea", String.valueOf(adressea));
+                //params.put("immatriv", String.valueOf(immatriv));
+                params.put("martyv", String.valueOf(martyv.getText()));
+                params.put("numpolice", String.valueOf(numpol.getText()));
+                params.put("steassurance", String.valueOf(steassurance.getText()));
+                params.put("datevald", String.valueOf(datevald.getText()));
+                params.put("datevala", String.valueOf(datevala.getText()));
+                params.put("emaila", String.valueOf(emaila.getText()));
+                return params;
+            }
+        };
+        requesthandler.getInstance(getContext()).addToRequestQueue(str);
+    }
+
+    private void deleteass(){
+
+        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_DELETEASS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject job=new JSONObject(response);
+                    if(!job.getBoolean("error")) {
+                        Toast.makeText(getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getContext(), job.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "error listener", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+
+                params.put("emaila", String.valueOf(emaila.getText()));
+                return params;
+            }
+        };
+        requesthandler.getInstance(getContext()).addToRequestQueue(str);
+
+    }
+
+
+
+    public void onClick(View view) {
+        if(view==btnupdate){
+            updateass();
+        }
+
+        if(view==btndelete){
+            deleteass();
+        }
     }
 }

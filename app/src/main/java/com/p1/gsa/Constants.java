@@ -8,4 +8,5 @@ public class Constants {
     public static final String URL_LOGINASS=ROOT_URL+"loginass.php";
     public static final String URL_GETASS=ROOT_URL+"activateass.php";
     public static final String URL_DELETEASS=ROOT_URL+"deleteass.php";
+    public static final String URL_UPDATEASS=ROOT_URL+"updateass.php";
 }

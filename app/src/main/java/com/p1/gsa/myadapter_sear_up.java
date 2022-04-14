@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,13 +18,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.myviewholder> {
 
     ArrayList<assure> asslist;
     ArrayList<assure> asslistsear;
-    ImageView imgdelete;
+    Button btnupdate;
     OnItemClickListener listener;
 
     public myadapter_sear_up(ArrayList<assure> asslist) {
@@ -34,7 +46,6 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
     public static Toast makeText (Context context, CharSequence text, int duration){
         return makeText(context,text,duration);
     };
-
 
     public interface OnItemClickListener{
         void ondelete(int position);
@@ -117,19 +128,66 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
 
             lncontainor=itemView.findViewById(R.id.asscontainor);
 
-            /*imgdelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (lst != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            lst.ondelete(position);
-                        }
-                    }
-                }
-            });*/
+//            btnupdate.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                }
+//            });
         }
     }
+
+//    private void updateass(){
+////        final String nomstxt=noms.getText().toString().trim();
+////        final String emailstxt=emails.getText().toString().trim();
+////        final String nomatxt=noma.getText().toString().trim();
+////        final String prenomatxt=prenoma.getText().toString().trim();
+////        final String emailatxt=emaila.getText().toString().trim();
+////        final String passtxt=pass.getText().toString().trim();
+//
+//        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTER, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    JSONObject job=new JSONObject(response);
+//                    if(!job.getBoolean("error")) {
+//                        //Toast.makeText(signupas.this, "in if", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(btnupdate.getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
+//                    }
+//                    else{
+//                        //Toast.makeText(signupas.this, "in else", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(btnupdate.getContext(), job.getString("message"),Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(btnupdate.getContext(), "error listener", Toast.LENGTH_SHORT).show();
+//                //Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+//            }
+//        }){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params=new HashMap<String, String>();
+//                //Toast.makeText(signupas.this, "in params", Toast.LENGTH_SHORT).show();
+//                params.put("noma",noma);
+//                params.put("emaila",emailstxt);
+//                params.put("prenoma",prenomatxt);
+//                params.put("adressea",nomatxt);
+//                params.put("immatriv",emailatxt);
+//                params.put("martyv",passtxt);
+//                params.put("numpolice",passtxt);
+//                params.put("numpolice",passtxt);
+//                return params;
+//            }
+//        };
+//        //RequestQueue rq= Volley.newRequestQueue(signupas.this);
+//        //Toast.makeText(signupas.this, "about to add", Toast.LENGTH_SHORT).show();
+//        //rq.add(str);
+//        requesthandler.getInstance(this).addToRequestQueue(str);
+//    }
 
     public void filterList(ArrayList<assure> filteredList) {
         asslist = filteredList;
