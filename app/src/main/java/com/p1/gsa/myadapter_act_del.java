@@ -19,7 +19,7 @@ public class myadapter_act_del extends RecyclerView.Adapter<myadapter_act_del.my
     ArrayList<assure> asslist;
     ArrayList<assure> asslistsear;
     //LinearLayout lnlyt;
-    ImageView imgdelete;
+    ImageView imgdelete,imgactivate;
     OnItemClickListener listener;
     String emailatxt;
 
@@ -35,6 +35,7 @@ public class myadapter_act_del extends RecyclerView.Adapter<myadapter_act_del.my
 
     public interface OnItemClickListener{
         void ondelete(int position);
+        void onactivate(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener lst) {
@@ -124,6 +125,7 @@ public class myadapter_act_del extends RecyclerView.Adapter<myadapter_act_del.my
             lncontainor=itemView.findViewById(R.id.asscontainor);
 
             imgdelete=itemView.findViewById(R.id.imgdelete);
+            imgactivate=itemView.findViewById(R.id.imgactivate);
 
            imgdelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -136,6 +138,18 @@ public class myadapter_act_del extends RecyclerView.Adapter<myadapter_act_del.my
                     }
                 }
             });
+
+           imgactivate.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   if (lst != null) {
+                       int position = getAdapterPosition();
+                       if (position != RecyclerView.NO_POSITION) {
+                           lst.onactivate(position);
+                       }
+                   }
+               }
+           });
         }
     }
 

@@ -34,7 +34,7 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
 
     RecyclerView recyclerView;
     myadapter_act_del adpt;
-    ImageView btndelete;
+    ImageView btndelete,btnactivate;
     String emailass;
     ArrayList<assure> asslist;
 
@@ -84,6 +84,7 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
 
 
         btndelete=lnview.findViewById(R.id.btndelete);
+        btnactivate=lnview.findViewById(R.id.imgactivate);
         asslist=new ArrayList<assure>();
 
         getass();
@@ -136,7 +137,15 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
                     public void ondelete(int position) {
                         //emailass= asslist.get(position).getEmaila();
                         emailass =asslist.get(position).getEmaila();
-                        actass(emailass);
+                        deleteass(emailass);
+                        asslist.remove(position);
+                        adpt.notifyItemRemoved(position);
+                    }
+
+                    @Override
+                    public void onactivate(int position) {
+                        emailass =asslist.get(position).getEmaila();
+                        activateass(emailass);
                         asslist.remove(position);
                         adpt.notifyItemRemoved(position);
                     }
@@ -153,8 +162,43 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
         return true;
     }
 
-    public void actass(String emailass){
+    public void deleteass(String emailass){
         StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_DELETEASS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject job=new JSONObject(response);
+                    if(!job.getBoolean("error")) {
+                        Toast.makeText(getContext(),"job false",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getContext(),"job true",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),job.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(getContext(), "error listener", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext().getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+                params.put("emaila",emailass);
+                return params;
+            }
+        };
+        requesthandler.getInstance(getContext()).addToRequestQueue(str);
+    }
+
+    public void activateass(String emailass){
+        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_ACTIVATEASS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -194,7 +238,7 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
            /*if(view==btndelete){
                Toast.makeText(getContext(),"btn clicked",Toast.LENGTH_SHORT).show();
-               actass();
+               deleteass();
             }*/
     }
 }

@@ -21,10 +21,21 @@
 
         <ImageView
             android:id="@+id/imgdelete"
-            android:layout_width="42dp"
-            android:layout_height="39dp"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="250dp"
-            android:layout_toRightOf="@+id/immatriv"
+            android:layout_marginTop="50dp"
+            android:layout_toRightOf="@+id/nomass"
+            android:src="@drawable/ic_delete" />
+
+        <ImageView
+            android:id="@+id/imgactivate"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="70dp"
+            android:layout_toRightOf="@+id/nomass"
+            android:layout_below="@+id/imgdelete"
             android:src="@drawable/ic_add" />
 
         <TextView
@@ -33,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:gravity="center_vertical"
-            android:text="nom ass:"
+            android:text="nom"
             android:textSize="25dp"
             android:textStyle="bold" />
 
