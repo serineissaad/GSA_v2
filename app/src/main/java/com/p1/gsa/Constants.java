@@ -10,4 +10,5 @@ public class Constants {
     public static final String URL_DELETEASS=ROOT_URL+"deleteass.php";
     public static final String URL_ACTIVATEASS=ROOT_URL+"activateass.php";
     public static final String URL_UPDATEASS=ROOT_URL+"updateass.php";
+    public static final String URL_VERIFYEMAIL=ROOT_URL+"verifyemail.php";
 }

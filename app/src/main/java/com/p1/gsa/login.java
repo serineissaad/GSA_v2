@@ -38,11 +38,11 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-       // if(sharedrefmanager.getInstance(this).isloggedin()){
-         //   finish();
-           // startActivity(new Intent(this,sadminpage.class));
-            //return;
-        //}
+//        if(sharedrefmanager.getInstance(this).isloggedin()){
+//            finish();
+//            startActivity(new Intent(this,sadminpage.class));
+//            return;
+//        }
 
         emaila=(EditText) findViewById(R.id.emaila);
         pass=(EditText) findViewById(R.id.pass);

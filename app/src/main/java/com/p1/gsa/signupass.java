@@ -4,12 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -25,22 +28,18 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class signupass extends AppCompatActivity implements View.OnClickListener {
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-        /
-        });*/
-
     EditText prenoma,noma,emaila,passworda,steassurance,agencea,immatriv,martyv,adressea,numpolice,datevald,datevala;
+    EditText passcode;
     Button btnsignup;
+    static String emailatxt,adresseatxt,agenceatxt,nomatxt,prenomatxt,numpolicetxt,steassurancetxt,passwordatxt
+            ,martyvtxt,immatrivtxt,datevaldtxt,datevalatxt;
     private TextView t5;
     private ProgressDialog progressDialog;
-
-
+    int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,6 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
           //  finish();
             //startActivity(new Intent(this,sadminpage.class));
             //return;
-
 
         noma= findViewById(R.id.noma);
         prenoma= findViewById(R.id.prenoma);
@@ -70,87 +68,158 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
         datevala=findViewById(R.id.datevala);
         btnsignup=findViewById(R.id.btnsignup);
         progressDialog=new ProgressDialog(this);
-        btnsignup.setOnClickListener(this);
+        //btnsignup.setOnClickListener(this);
+
+        passcode=findViewById(R.id.code);
+
+        passcode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length()>0){
+                    passcode.requestFocus();
+                }
+            }
+        });
+
     }
 
     public static Toast makeText (Context context, CharSequence text, int duration){
         return makeText(context,text,duration);
     }
 
-    private void registeras(){
 
-        final String agenceatxt=agencea.getText().toString().trim();
-        final String adresseatxt=adressea.getText().toString().trim();
-        final String nomatxt=noma.getText().toString().trim();
-        final String prenomatxt=prenoma.getText().toString().trim();
-        final String emailatxt=emaila.getText().toString().trim();
-        final String passwordatxt=passworda.getText().toString().trim();
-        final String datevaldtxt=datevald.getText().toString().trim();
-        final String datevalatxt=datevala.getText().toString().trim();
-        final String immatrivtxt=immatriv.getText().toString().trim();
-        final String martyvtxt=martyv.getText().toString().trim();
-        final String steassurancetxt=steassurance.getText().toString().trim();
-        final String numpolicetxt=numpolice.getText().toString().trim();
+    @Override
+    public void onClick(View view) {
+//        if(view==btnsignup)
+//            registeras();
+        //if(view==t5)
+          //  startActivity(new Intent(this,login.class));
+    }
 
-        progressDialog.setMessage("Inscription en cours d'enregistrement...");
-        progressDialog.show();
-        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTERASS, new Response.Listener<String>() {
+    public void sendverifyemail(View view) {
+        Random random=new Random();
+        code=random.nextInt(100)*random.nextInt(100)-1;
+
+        agenceatxt=agencea.getText().toString().trim();
+        adresseatxt=adressea.getText().toString().trim();
+        nomatxt=noma.getText().toString().trim();
+        prenomatxt=prenoma.getText().toString().trim();
+        emailatxt=emaila.getText().toString().trim();
+        passwordatxt=passworda.getText().toString().trim();
+        datevaldtxt=datevald.getText().toString().trim();
+        datevalatxt=datevala.getText().toString().trim();
+        immatrivtxt=immatriv.getText().toString().trim();
+        martyvtxt=martyv.getText().toString().trim();
+        steassurancetxt=steassurance.getText().toString().trim();
+        numpolicetxt=numpolice.getText().toString().trim();
+
+        findViewById(R.id.box1).setVisibility(View.GONE);
+        findViewById(R.id.box2).setVisibility(View.VISIBLE);
+
+        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_VERIFYEMAIL, new Response.Listener<String>() {
+
             @Override
             public void onResponse(String response) {
-                progressDialog.dismiss();
-            try {
-                JSONObject job=new JSONObject(response);
-                if(!job.getBoolean("error")) {
+
+                try {
+                    JSONObject job=new JSONObject(response);
+                    if(!job.getBoolean("error")) {
                     Toast.makeText(getApplicationContext(), job.getString("message"),Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(),login.class));
-                    finish();
+                    //finish();
                 }
                 else{
                     Toast.makeText(getApplicationContext(),job.getString("message"),Toast.LENGTH_LONG).show();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            }}, new Response.ErrorListener() {
+        },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.hide();
-                Toast.makeText(getApplicationContext(), "Un utiisateur avac le meme matricule ou email existe deja", Toast.LENGTH_SHORT).show();
-
-                //Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "error listener", Toast.LENGTH_SHORT).show();
             }
         }){
+            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
+            protected Map<String, String> getParams() throws AuthFailureError {
+
                 Map<String,String> params= new HashMap<String, String>();
-                //Toast.makeText(signupas.this, "in params", Toast.LENGTH_SHORT).show();
-                params.put("noma",nomatxt);
-                params.put("prenoma",prenomatxt);
-                params.put("adressea",adresseatxt);
-                params.put("steassurance",steassurancetxt);
-                params.put("numpolice",numpolicetxt);
-                params.put("datevald",datevaldtxt);
-                params.put("datevala",datevalatxt);
-                params.put("martyv",martyvtxt);
-                params.put("immatriv",immatrivtxt);
-                params.put("agencea",agenceatxt);
                 params.put("emaila", emailatxt);
-                params.put("passworda",passwordatxt);
+                params.put("code", String.valueOf(code));
                 return params;
             }
         };
-        //RequestQueue rq= Volley.newRequestQueue(signupas.this);
-        //Toast.makeText(signupas.this, "about to add", Toast.LENGTH_SHORT).show();
-        //rq.add(str);
-        requesthandler.getInstance(this).addToRequestQueue(str);
+            requesthandler.getInstance(this).addToRequestQueue(str);
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view==btnsignup)
-            registeras();
-        //if(view==t5)
-          //  startActivity(new Intent(this,login.class));
+    public void verify(View view) {
+        if(passcode.getText().toString().equals(String.valueOf(code))){
+            Toast.makeText(this,"Email Verified",Toast.LENGTH_SHORT).show();
+
+            /////////******************************************///////////
+            progressDialog.setMessage("Inscription en cours d'enregistrement...");
+            progressDialog.show();
+            findViewById(R.id.box2).setVisibility(View.VISIBLE);
+            StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTERASS, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject job=new JSONObject(response);
+                        if(!job.getBoolean("error")) {
+                            Toast.makeText(getApplicationContext(), job.getString("message"),Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(),login.class));
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),job.getString("message"),Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }}, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    progressDialog.hide();
+                    Toast.makeText(getApplicationContext(), "Un utiisateur avac le meme matricule ou email existe deja", Toast.LENGTH_SHORT).show();
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError
+                {
+                    Map<String,String> params= new HashMap<String, String>();
+                    params.put("noma",nomatxt);
+                    params.put("prenoma",prenomatxt);
+                    params.put("adressea",adresseatxt);
+                    params.put("steassurance",steassurancetxt);
+                    params.put("numpolice",numpolicetxt);
+                    params.put("datevald",datevaldtxt);
+                    params.put("datevala",datevalatxt);
+                    params.put("martyv",martyvtxt);
+                    params.put("immatriv",immatrivtxt);
+                    params.put("agencea",agenceatxt);
+                    params.put("emaila", emailatxt);
+                    params.put("passworda",passwordatxt);
+                    return params;
+                }
+            };
+            requesthandler.getInstance(this).addToRequestQueue(str);
+
+            /////////******************************************///////////
+        }
+        else{
+            Toast.makeText(this,"Verification Failed",Toast.LENGTH_SHORT).show();
+        }
     }
 }
