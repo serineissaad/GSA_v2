@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+
 public class sadminpage extends AppCompatActivity {
 
     private TextView email, name;
@@ -32,6 +36,5 @@ public class sadminpage extends AppCompatActivity {
         email.setText(sharedrefmanager.getInstance(this).getemaila());
         name.setText(sharedrefmanager.getInstance(this).getnoms());*/
     }
-
 
 }

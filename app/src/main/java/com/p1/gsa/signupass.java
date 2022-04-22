@@ -2,57 +2,46 @@ package com.p1.gsa;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-//import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-//import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+
+
 
 public class signupass extends AppCompatActivity implements View.OnClickListener {
 
+    private FirebaseAuth mAuth;
+
     EditText prenoma,noma,emaila,passworda,steassurance,agencea,immatriv,martyv,adressea,numpolice,datevald,datevala;
-    EditText passcode;
     Button btnsignup;
-    static String emailatxt,adresseatxt,agenceatxt,nomatxt,prenomatxt,numpolicetxt,steassurancetxt,passwordatxt
-            ,martyvtxt,immatrivtxt,datevaldtxt,datevalatxt;
-    private TextView t5;
     private ProgressDialog progressDialog;
-    int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signupass);
 
-        t5=findViewById(R.id.t5);
-        t5.setOnClickListener(this);
-
         //if(sharedrefmanager.getInstance(this).isloggedin()){
           //  finish();
             //startActivity(new Intent(this,sadminpage.class));
             //return;
+
+        mAuth = FirebaseAuth.getInstance();
 
         noma= findViewById(R.id.noma);
         prenoma= findViewById(R.id.prenoma);
@@ -66,160 +55,148 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
         numpolice=findViewById(R.id.numpolice);
         datevald=findViewById(R.id.datevald);
         datevala=findViewById(R.id.datevala);
+
         btnsignup=findViewById(R.id.btnsignup);
-        progressDialog=new ProgressDialog(this);
-        //btnsignup.setOnClickListener(this);
+        btnsignup.setOnClickListener(this);
 
-        passcode=findViewById(R.id.code);
 
-        passcode.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//        btnsignup.setOnClickListener(v ->{
+//            assure ass=new assure(noma.getText().toString(),prenoma.getText().toString(),
+//                    adressea.getText().toString(),steassurance.getText().toString(),numpolice.getText().toString(),
+//                    datevald.getText().toString(),datevala.getText().toString(),martyv.getText().toString(),
+//                    immatriv.getText().toString(),agencea.getText().toString(),emaila.getText().toString());
+//
+//            daa.addass(ass).addOnSuccessListener(er->{
+//                Toast.makeText(this,"Assure enregistre",Toast.LENGTH_SHORT).show();
+//            }).addOnFailureListener(er->{
+//                Toast.makeText(this,""+er.getMessage(),Toast.LENGTH_SHORT).show();
+//            });
+//
+//        });
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(editable.length()>0){
-                    passcode.requestFocus();
-                }
-            }
-        });
+//        btnsignup.setOnClickListener(v ->{
+//            HashMap<String,Object> hashmap=new HashMap<>();
+//            hashmap.put("noma",noma.getText().toString());
+//            hashmap.put("prenoma",prenoma.getText().toString());
+//            hashmap.put("emaila",emaila.getText().toString());
+//
+//            daa.update("-N01OY2DoGgpHsctr1ys",hashmap).addOnSuccessListener(er->{
+//                Toast.makeText(this,"Assure modifie",Toast.LENGTH_SHORT).show();
+//            }).addOnFailureListener(er->{
+//                Toast.makeText(this,""+er.getMessage(),Toast.LENGTH_SHORT).show();
+//            });
+//
+//        });
 
     }
 
-    public static Toast makeText (Context context, CharSequence text, int duration){
-        return makeText(context,text,duration);
-    }
+    public  void  registerass(){
+        String nomatxt=noma.getText().toString().trim();
+        String prenomatxt=prenoma.getText().toString().trim();
+        String adresseatxt=adressea.getText().toString().trim();
+        String datevaldtxt=datevald.getText().toString().trim();
+        String datevalatxt=datevala.getText().toString().trim();
+        String steassurancetxt=steassurance.getText().toString().trim();
+        String numpolicetxt=numpolice.getText().toString().trim();
+        String martyvtxt=martyv.getText().toString().trim();
+        String immatrivtxt=immatriv.getText().toString().trim();
+        String agenceatxt=agencea.getText().toString().trim();
+        String emailatxt=emaila.getText().toString().trim();
+        String passwordatxt=passworda.getText().toString().trim();
 
+
+        if(nomatxt.isEmpty()){
+            noma.setError("Name is required");noma.requestFocus();return;
+        }
+        if(prenomatxt.isEmpty()){
+            prenoma.setError("Prenom is required");prenoma.requestFocus();return;
+        }
+        if(steassurancetxt.isEmpty()){
+            steassurance.setError("steassurance is required");steassurance.requestFocus();return;
+        }
+        if(numpolicetxt.isEmpty()){
+            numpolice.setError("numpolice is required");numpolice.requestFocus();return;
+        }
+        if(martyvtxt.isEmpty()){
+            martyv.setError("martyv is required");martyv.requestFocus();return;
+        }
+        if(immatrivtxt.isEmpty()){
+            immatriv.setError("immatriv is required");immatriv.requestFocus();return;
+        }
+        if(datevaldtxt.isEmpty()){
+            datevald.setError("date is required");datevald.requestFocus();return;
+        }
+        if(datevalatxt.isEmpty()){
+            datevala.setError("date is required");datevala.requestFocus();return;
+        }
+        if(adresseatxt.isEmpty()){
+            adressea.setError("adresse is required");adressea.requestFocus();return;
+        }
+        if(prenomatxt.isEmpty()){
+            agencea.setError("agence name is required");agencea.requestFocus();return;
+        }
+
+        if(emailatxt.isEmpty()){
+            emaila.setError("Email is required");
+            emaila.requestFocus();
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(emailatxt).matches()){
+            emaila.setError("Invalid email");
+            emaila.requestFocus();
+            return;
+        }
+
+        if(passwordatxt.isEmpty()){
+            passworda.setError("Password is required");
+            passworda.requestFocus();
+            return;
+        }
+        if(passwordatxt.length()<6){
+            passworda.setError("Password must contain 6 at least 6 characters");
+            passworda.requestFocus();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(emailatxt,passwordatxt)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            assure ass=new assure(nomatxt,prenomatxt,adresseatxt,steassurancetxt,numpolicetxt,
+                    datevaldtxt,datevalatxt,martyvtxt,
+                    immatrivtxt,agenceatxt,emailatxt);
+
+                            FirebaseDatabase.getInstance().getReference("assure")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(ass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    else{
+                                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
 
     @Override
     public void onClick(View view) {
 //        if(view==btnsignup)
-//            registeras();
-        //if(view==t5)
-          //  startActivity(new Intent(this,login.class));
-    }
-
-    public void sendverifyemail(View view) {
-        Random random=new Random();
-        code=random.nextInt(100)*random.nextInt(100)-1;
-
-        agenceatxt=agencea.getText().toString().trim();
-        adresseatxt=adressea.getText().toString().trim();
-        nomatxt=noma.getText().toString().trim();
-        prenomatxt=prenoma.getText().toString().trim();
-        emailatxt=emaila.getText().toString().trim();
-        passwordatxt=passworda.getText().toString().trim();
-        datevaldtxt=datevald.getText().toString().trim();
-        datevalatxt=datevala.getText().toString().trim();
-        immatrivtxt=immatriv.getText().toString().trim();
-        martyvtxt=martyv.getText().toString().trim();
-        steassurancetxt=steassurance.getText().toString().trim();
-        numpolicetxt=numpolice.getText().toString().trim();
-
-        findViewById(R.id.box1).setVisibility(View.GONE);
-        findViewById(R.id.box2).setVisibility(View.VISIBLE);
-
-        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_VERIFYEMAIL, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject job=new JSONObject(response);
-                    if(!job.getBoolean("error")) {
-                    Toast.makeText(getApplicationContext(), job.getString("message"),Toast.LENGTH_LONG).show();
-                    //finish();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),job.getString("message"),Toast.LENGTH_LONG).show();
-                }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "error listener", Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String,String> params= new HashMap<String, String>();
-                params.put("emaila", emailatxt);
-                params.put("code", String.valueOf(code));
-                return params;
-            }
-        };
-            requesthandler.getInstance(this).addToRequestQueue(str);
-    }
-
-    public void verify(View view) {
-        if(passcode.getText().toString().equals(String.valueOf(code))){
-            Toast.makeText(this,"Email Verified",Toast.LENGTH_SHORT).show();
-
-            /////////******************************************///////////
-            progressDialog.setMessage("Inscription en cours d'enregistrement...");
-            progressDialog.show();
-            findViewById(R.id.box2).setVisibility(View.VISIBLE);
-            StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_REGISTERASS, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    progressDialog.dismiss();
-                    try {
-                        JSONObject job=new JSONObject(response);
-                        if(!job.getBoolean("error")) {
-                            Toast.makeText(getApplicationContext(), job.getString("message"),Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(),login.class));
-                            finish();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(),job.getString("message"),Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }}, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.hide();
-                    Toast.makeText(getApplicationContext(), "Un utiisateur avac le meme matricule ou email existe deja", Toast.LENGTH_SHORT).show();
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError
-                {
-                    Map<String,String> params= new HashMap<String, String>();
-                    params.put("noma",nomatxt);
-                    params.put("prenoma",prenomatxt);
-                    params.put("adressea",adresseatxt);
-                    params.put("steassurance",steassurancetxt);
-                    params.put("numpolice",numpolicetxt);
-                    params.put("datevald",datevaldtxt);
-                    params.put("datevala",datevalatxt);
-                    params.put("martyv",martyvtxt);
-                    params.put("immatriv",immatrivtxt);
-                    params.put("agencea",agenceatxt);
-                    params.put("emaila", emailatxt);
-                    params.put("passworda",passwordatxt);
-                    return params;
-                }
-            };
-            requesthandler.getInstance(this).addToRequestQueue(str);
-
-            /////////******************************************///////////
-        }
-        else{
-            Toast.makeText(this,"Verification Failed",Toast.LENGTH_SHORT).show();
+        switch (view.getId()){
+            case R.id.btnsignup: registerass();
+                break;
         }
     }
+
 }

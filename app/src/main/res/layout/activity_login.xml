@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".login">
+    tools:context=".logina">
 
 
     <TextView
@@ -16,11 +16,20 @@
         android:text="GSA"
         android:textSize="50dp" />
 
+    <TextView
+        android:id="@+id/selected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/title1"
+        android:text="Assure"
+        android:textSize="30dp" />
+
     <EditText
         android:id="@+id/emaila"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title1"
+        android:layout_below="@+id/selected"
         android:layout_marginTop="83dp"
         android:hint="email"
         android:inputType="textEmailAddress"
@@ -45,42 +54,78 @@
         android:text="log in"
         android:textSize="22dp" />
 
-    <Button
-        android:id="@+id/btntry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title2"
-        android:layout_marginTop="50dp"
-        android:text="try"
-        android:textSize="22dp" />
-
-
     <TextView
-        android:id="@+id/title2"
+        android:id="@+id/forgotpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnlogin"
         android:layout_marginTop="15dp"
+        android:text="forgot password?"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/forgotpassword"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
         android:text="You don't have an account? "
         android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/title3"
-        android:layout_width="match_parent"
+        android:id="@+id/btnsignup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title2"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
+        android:layout_below="@+id/forgotpassword"
+        android:layout_toRightOf="@id/title2"
+        android:layout_marginTop="15dp"
         android:text="sign up"
-        android:textSize="20dp" />
+        android:textSize="15dp"
+        android:textStyle="bold"/>
 
-    <Switch
-        android:id="@+id/switchadmin"
+<!--    <Switch-->
+<!--        android:id="@+id/switchadmin"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_below="@+id/btnsignup"-->
+<!--        android:text="Admin" />-->
+    <RadioGroup
+        android:id="@+id/radiogroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btntry"
-        android:text="Admin" />
+        android:layout_below="@+id/btnsignup"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/adminr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:onClick="checkbtn"/>
+
+        <RadioButton
+            android:id="@+id/assurer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assure"
+            android:checked="true"
+            android:onClick="checkbtn"/>
+
+        <RadioButton
+            android:id="@+id/expertr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expert"
+            android:onClick="checkbtn"/>
+
+    </RadioGroup>
 
 
 </RelativeLayout>
