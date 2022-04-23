@@ -81,24 +81,28 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment nextfrag = new sadmin_sear_up_1ass();
+                Fragment nextfrag = new sadmin_sear_up_1ass(asslist.get(position).getPrenoma(),asslist.get(position).getNoma(),
+                        asslist.get(position).getAdressea(), asslist.get(position).getSteassurance(),
+                        asslist.get(position).getMartyv(), asslist.get(position).getNumpolice(),
+                        asslist.get(position).getImmatriv(), asslist.get(position).getEmaila(),
+                        asslist.get(position).getDatevald(), asslist.get(position).getDatevala());
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container,nextfrag).addToBackStack(null)
                         .commit();
 
-                int position=holder.getAdapterPosition();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("noma",asslist.get(position).getNoma());
-                bundle.putString("adressea",asslist.get(position).getAdressea());
-                bundle.putString("steassurance",asslist.get(position).getSteassurance());
-                bundle.putString("martyv",asslist.get(position).getMartyv());
-                bundle.putString("numpolice",asslist.get(position).getNumpolice());
-                bundle.putString("immatriv",asslist.get(position).getImmatriv());
-                bundle.putString("emaila",asslist.get(position).getEmaila());
-                bundle.putString("datevala",asslist.get(position).getDatevala());
-                bundle.putString("datevald",asslist.get(position).getDatevald());
-                nextfrag.setArguments(bundle);
+//                int position=holder.getAdapterPosition();
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString("noma",asslist.get(position).getNoma());
+//                bundle.putString("adressea",asslist.get(position).getAdressea());
+//                bundle.putString("steassurance",asslist.get(position).getSteassurance());
+//                bundle.putString("martyv",asslist.get(position).getMartyv());
+//                bundle.putString("numpolice",asslist.get(position).getNumpolice());
+//                bundle.putString("immatriv",asslist.get(position).getImmatriv());
+//                bundle.putString("emaila",asslist.get(position).getEmaila());
+//                bundle.putString("datevala",asslist.get(position).getDatevala());
+//                bundle.putString("datevald",asslist.get(position).getDatevald());
+//                nextfrag.setArguments(bundle);
             }
         });
     }

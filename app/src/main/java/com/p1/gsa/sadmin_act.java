@@ -17,6 +17,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,14 +40,10 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
     String emailass;
     ArrayList<assure> asslist;
 
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-
     public sadmin_act() {
-        // Required empty public constructor
     }
 
     public static sadmin_act newInstance(String param1, String param2) {
@@ -65,11 +63,7 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        */
+        //setContentView(R.layout.activity_nav_draw);
     }
 
     @Override
@@ -85,17 +79,23 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
 
         btndelete=lnview.findViewById(R.id.btndelete);
         btnactivate=lnview.findViewById(R.id.imgactivate);
-        asslist=new ArrayList<assure>();
+        //asslist=new ArrayList<assure>();
 
-        getass();
+        //getass();
+
+        FirebaseRecyclerOptions<assure> options= new FirebaseRecyclerOptions.Builder<assure>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("assure").orderByChild("activate").equalTo("0"),assure.class)
+                .build();
+
+        adpt=new myadapter_act_del(options);
+        recyclerView.setAdapter(adpt);
 
         Toast.makeText(getContext(),"returning VIEW",Toast.LENGTH_SHORT).show();
         return lnview;
 
     }
 
-
-    public boolean getass(){
+    /*public boolean getass(){
 
         StringRequest str=new StringRequest(Request.Method.GET, Constants.URL_GETASS,
                 new Response.Listener<String>() {
@@ -160,7 +160,7 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
         });
         requesthandler.getInstance(getContext()).addToRequestQueue(str);
         return true;
-    }
+    }*/
 
     public void deleteass(String emailass){
         StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_DELETEASS, new Response.Listener<String>() {
@@ -232,13 +232,22 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
         requesthandler.getInstance(getContext()).addToRequestQueue(str);
     }
 
-
-
     @Override
     public void onClick(View view) {
            /*if(view==btndelete){
                Toast.makeText(getContext(),"btn clicked",Toast.LENGTH_SHORT).show();
                deleteass();
             }*/
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        adpt.startListening();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        adpt.stopListening();
     }
 }

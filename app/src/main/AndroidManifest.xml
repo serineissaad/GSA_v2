@@ -22,7 +22,7 @@
             android:name=".nav_header"
             android:exported="false" />
         <activity
-            android:name=".nav_draw"
+            android:name=".logina"
             android:exported="false" />
         <activity
             android:name=".login"
@@ -37,7 +37,7 @@
             android:name=".signupass"
             android:exported="false" />
         <activity
-            android:name=".logina"
+            android:name=".nav_draw"
             android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

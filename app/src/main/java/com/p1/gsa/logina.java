@@ -3,6 +3,7 @@ package com.p1.gsa;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -21,10 +22,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class logina extends AppCompatActivity implements View.OnClickListener {
@@ -138,7 +141,44 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
                     DatabaseReference ref= FirebaseDatabase.getInstance().getReference("admin");
                     String userid=user.getUid();
 
-                    if(user.isEmailVerified()){
+                    DatabaseReference ref2= FirebaseDatabase.getInstance().getReference("admin").child(userid);
+                    final Query userQuery = FirebaseDatabase.getInstance().getReference().child("admin/"+userid);//.equalTo(emailatxt);//.orderByChild("admin/emaila").equalTo(emailatxt);
+                    //Toast.makeText(getApplicationContext(),"ref2 key: "+ref2.getParent(),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),"ref: "+ref2,Toast.LENGTH_LONG).show();
+                    userQuery.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            //Get the node from the datasnapshot
+                            String myParentNode = dataSnapshot.getKey();
+                            String data = dataSnapshot.toString();
+                            Toast.makeText(getApplicationContext(),"parent: "+myParentNode,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"data: "+data,Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                    //if(user.isEmailVerified()){
                         radbtn=findViewById(raddgrp.getCheckedRadioButtonId());
                         switch (radbtn.getText().toString()){
                             case "Admin":
@@ -153,10 +193,10 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
                                 startActivity(new Intent(logina.this,signupa.class));
                                 finish();
                                 break;
-                        }
-                    }else{
-                        user.sendEmailVerification();
-                        Toast.makeText(getApplicationContext(),"Check your email to verify your account!",Toast.LENGTH_SHORT).show();
+                    //    }
+                    //}else{
+                    //    user.sendEmailVerification();
+                    //    Toast.makeText(getApplicationContext(),"Check your email to verify your account!",Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),"Failed to login",Toast.LENGTH_SHORT).show();

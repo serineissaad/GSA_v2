@@ -29,6 +29,8 @@ public class assure {
         this.prenoma = prenoma;
     }
 
+    public assure(){};
+
     public assure (String noma, String prenoma, String adressea, String steassurance, String numpolice,
                    String datevald, String datevala, String martyv, String immatriv, String agencea, String emaila){
 

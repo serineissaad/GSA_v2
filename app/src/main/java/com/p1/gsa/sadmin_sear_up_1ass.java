@@ -3,6 +3,7 @@ package com.p1.gsa;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -18,6 +19,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,23 +31,31 @@ import java.util.Map;
 
 public class sadmin_sear_up_1ass extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    TextView noma,prenoma,emaila,adressea,immatriv;
-    EditText steassurance,numpol,datevald,datevala,martyv;
+    DatabaseReference ref;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    TextView noma,prenoma,emaila,adressea,immatriv,martyv;
+    EditText steassurance,numpol,datevald,datevala;
+
     Button btndelete,btnupdate;
+
+    static String prenomtxt,nomtxt,adressetxt,immatrivtxt,steassurancetxt,emailtxt,numpoltxt,datevaldtxt,
+    datevalatxt,martyvtxt;
 
     public sadmin_sear_up_1ass() {
     }
+    public sadmin_sear_up_1ass(String prenomtxt,String nomtxt,String adressetxt,String steassurancetxt,
+                               String martyvtxt,String numpoltxt,String immatrivtxt,String emailtxt,
+                               String datevaldtxt,String datevalatxt) {
+        this.prenomtxt=prenomtxt;this.martyvtxt=martyvtxt;
+        this.nomtxt=nomtxt;this.numpoltxt=numpoltxt;
+        this.adressetxt=adressetxt;this.immatrivtxt=immatrivtxt;
+        this.emailtxt=emailtxt;this.datevaldtxt=datevaldtxt;
+        this.datevalatxt=datevalatxt;
+    }
 
-    // TODO: Rename and change types and number of parameters
     public static sadmin_sear_up_1ass newInstance(String param1, String param2) {
         sadmin_sear_up_1ass fragment = new sadmin_sear_up_1ass();
         Bundle args = new Bundle();
@@ -57,16 +69,18 @@ public class sadmin_sear_up_1ass extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            //mParam1 = getArguments().getString(ARG_PARAM1);
+            //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v=inflater.inflate(R.layout.fragment_sadmin_sear_up_1ass, container, false);
+
+        ref= FirebaseDatabase.getInstance().getReference("assure");
 
         noma=v.findViewById(R.id.noma);
         prenoma=v.findViewById(R.id.prenoma);
@@ -93,16 +107,26 @@ public class sadmin_sear_up_1ass extends Fragment {
         //if(getArguments().getBoolean("noma") && getArguments().getBoolean("prenoma") && getArguments().getBoolean("emaila") &&
         //      getArguments().getBoolean("noma") && getArguments().getBoolean("noma") && getArguments().getBoolean("noma"))
 
-        noma.setText(getArguments().getString("noma"));
-        prenoma.setText(getArguments().getString("prenoma"));
-        emaila.setText(getArguments().getString("emaila"));
-        steassurance.setText(getArguments().getString("steassurance"));
-        immatriv.setText(getArguments().getString("immatriv"));
-        martyv.setText(getArguments().getString("martyv"));
-        adressea.setText(getArguments().getString("adressea"));
-        datevald.setText(getArguments().getString("datevald"));
-        datevala.setText(getArguments().getString("datevala"));
-        numpol.setText(getArguments().getString("numpolice"));
+//        steassurancetxt=steassurance.getText().toString();
+//        numpoltxt=numpol.getText().toString();
+//        datevaldtxt=datevald.getText().toString();
+//        datevalatxt=datevala.getText().toString();
+
+        prenoma.setText(prenomtxt);
+        noma.setText(nomtxt);
+        emaila.setText(emailtxt);
+        steassurance.setText(steassurancetxt);
+        immatriv.setText(immatrivtxt);
+        martyv.setText(martyvtxt);
+        adressea.setText(adressetxt);
+        datevald.setText(datevaldtxt);
+        datevala.setText(datevalatxt);
+        numpol.setText(numpoltxt);
+
+        Toast.makeText(getContext(),noma.getText(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),noma.toString(),Toast.LENGTH_SHORT).show();
+
+        //Glide.with(getContext()).load(purl).into(image);//image is a findviewbyid
     }
 
     private void updateass(){
@@ -183,15 +207,77 @@ public class sadmin_sear_up_1ass extends Fragment {
 
     }
 
+    private void update(){
+
+        steassurancetxt=steassurance.getText().toString();
+        numpoltxt=numpol.getText().toString();
+        datevaldtxt=datevald.getText().toString();
+        datevalatxt=datevala.getText().toString();
+
+        Toast.makeText(getContext(),datevalatxt,Toast.LENGTH_SHORT).show();
+
+
+        if (steassurancechanged()||numpolchanged()||datevalachanged()||datevaldchanged()) {
+            Toast.makeText(getContext(),"Assure modifie",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getContext(),"Aucune information n'a change",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public boolean steassurancechanged(){
+        //Toast.makeText(getContext(),steassurance.getText(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),steassurancetxt,Toast.LENGTH_SHORT).show();
+
+        if(!steassurancetxt.equals(steassurance.getText())){
+            ref.child("assure").child("steassurance").setValue(steassurance.getText().toString());
+            steassurancetxt=steassurance.getText().toString();
+            steassurance.setText(steassurancetxt);
+        return true;}
+        else
+            return false;
+    }
+    public boolean numpolchanged(){
+        if(!numpoltxt.equals(numpol.getText().toString())){
+            ref.child("assure").child("numpolice").setValue(numpol.getText().toString());
+            numpoltxt=numpol.getText().toString();
+            return true;}
+        else return false;
+    }
+    public boolean datevaldchanged(){
+        if(!datevaldtxt.equals(datevald.getText().toString())){
+            ref.child("assure").child("datevald").setValue(datevald.getText().toString());
+            datevaldtxt=datevald.getText().toString();
+            datevald.setText(datevaldtxt);
+            return true;}
+        else return false;
+    }
+    public boolean datevalachanged(){
+        if(!datevalatxt.equals(datevala.getText().toString())){
+            ref.child("assure").child("datevala").setValue(datevala.getText().toString());
+            datevalatxt=datevala.getText().toString();
+            datevala.setText(datevalatxt);
+            return true;}
+        else return false;
+    }
+
 
 
     public void onClick(View view) {
         if(view==btnupdate){
-            updateass();
+            update();
         }
 
         if(view==btndelete){
             deleteass();
         }
     }
+
+//    public void onBackPreseed(){
+//        AppCompatActivity activity = (AppCompatActivity)getContext();
+//        Fragment nextfrag = new sadmin_sear_up();
+//        activity.getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment_container,nextfrag).addToBackStack(null)
+//                .commit();
+//    }
 }
