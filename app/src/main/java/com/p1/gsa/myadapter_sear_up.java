@@ -1,5 +1,6 @@
 package com.p1.gsa;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,7 +71,7 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull myviewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.noma.setText(asslist.get(position).getNoma());
         holder.emaila.setText(asslist.get(position).getEmaila());
         //holder.adressea.setText(asslist.get(position).getAdressea());
@@ -81,7 +88,10 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment nextfrag = new sadmin_sear_up_1ass(asslist.get(position).getPrenoma(),asslist.get(position).getNoma(),
+
+                //asslist.get(position).geto
+                Fragment nextfrag = new sadmin_sear_up_1ass(asslist.get(position).getId(),asslist.get(position).getActivate(),
+                        asslist.get(position).getPrenoma(),asslist.get(position).getNoma(),
                         asslist.get(position).getAdressea(), asslist.get(position).getSteassurance(),
                         asslist.get(position).getMartyv(), asslist.get(position).getNumpolice(),
                         asslist.get(position).getImmatriv(), asslist.get(position).getEmaila(),

@@ -107,14 +107,14 @@
             android:id="@+id/adminr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Admin"
+            android:text="admin"
             android:onClick="checkbtn"/>
 
         <RadioButton
             android:id="@+id/assurer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Assure"
+            android:text="assure"
             android:checked="true"
             android:onClick="checkbtn"/>
 
@@ -122,7 +122,7 @@
             android:id="@+id/expertr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expert"
+            android:text="expert"
             android:onClick="checkbtn"/>
 
     </RadioGroup>

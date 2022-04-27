@@ -1,8 +1,10 @@
 package com.p1.gsa;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,24 +40,27 @@ public class sadmin_sear_up_1ass extends Fragment {
 
     DatabaseReference ref;
 
-    TextView noma,prenoma,emaila,adressea,immatriv,martyv;
+    TextView noma,prenoma,emaila,adressea,immatriv,martyv,etat;
     EditText steassurance,numpol,datevald,datevala;
+    ImageView deactivate;
 
     Button btndelete,btnupdate;
 
-    static String prenomtxt,nomtxt,adressetxt,immatrivtxt,steassurancetxt,emailtxt,numpoltxt,datevaldtxt,
+    static String idtxt,prenomtxt,nomtxt,adressetxt,immatrivtxt,steassurancetxt,emailtxt,numpoltxt,datevaldtxt,
     datevalatxt,martyvtxt;
+    static int activate;
 
     public sadmin_sear_up_1ass() {
     }
-    public sadmin_sear_up_1ass(String prenomtxt,String nomtxt,String adressetxt,String steassurancetxt,
+    public sadmin_sear_up_1ass(String id,int activate,String prenomtxt,String nomtxt,String adressetxt,String steassurancetxt,
                                String martyvtxt,String numpoltxt,String immatrivtxt,String emailtxt,
                                String datevaldtxt,String datevalatxt) {
+        this.idtxt=id;this.activate=activate;
         this.prenomtxt=prenomtxt;this.martyvtxt=martyvtxt;
         this.nomtxt=nomtxt;this.numpoltxt=numpoltxt;
         this.adressetxt=adressetxt;this.immatrivtxt=immatrivtxt;
         this.emailtxt=emailtxt;this.datevaldtxt=datevaldtxt;
-        this.datevalatxt=datevalatxt;
+        this.datevalatxt=datevalatxt; this.steassurancetxt=steassurancetxt;
     }
 
     public static sadmin_sear_up_1ass newInstance(String param1, String param2) {
@@ -80,8 +87,7 @@ public class sadmin_sear_up_1ass extends Fragment {
 
         View v=inflater.inflate(R.layout.fragment_sadmin_sear_up_1ass, container, false);
 
-        ref= FirebaseDatabase.getInstance().getReference("assure");
-
+        ref= FirebaseDatabase.getInstance().getReference().child("assure");//.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         noma=v.findViewById(R.id.noma);
         prenoma=v.findViewById(R.id.prenoma);
         emaila=v.findViewById(R.id.emaila);
@@ -94,9 +100,12 @@ public class sadmin_sear_up_1ass extends Fragment {
         numpol=v.findViewById(R.id.numpol);
         btndelete=v.findViewById(R.id.btndelete);
         btnupdate=v.findViewById(R.id.btnupdate);
+        deactivate=v.findViewById(R.id.imgactivate);
+        etat=v.findViewById(R.id.etat);
 
         btnupdate.setOnClickListener(this::onClick);
         btndelete.setOnClickListener(this::onClick);
+        deactivate.setOnClickListener(this::onClick);
 
         setass();
 
@@ -123,8 +132,16 @@ public class sadmin_sear_up_1ass extends Fragment {
         datevala.setText(datevalatxt);
         numpol.setText(numpoltxt);
 
-        Toast.makeText(getContext(),noma.getText(),Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(),noma.toString(),Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(),ref.child(idtxt).child("activate").toString(),Toast.LENGTH_SHORT).show();
+
+        if(activate==1){
+            etat.setText("Active");
+        }else{etat.setText("Desactive");}
+
+        steassurancetxt=steassurance.getText().toString();
+        numpoltxt=numpol.getText().toString();
+        datevaldtxt=datevald.getText().toString();
+        datevalatxt=datevala.getText().toString();
 
         //Glide.with(getContext()).load(purl).into(image);//image is a findviewbyid
     }
@@ -209,15 +226,8 @@ public class sadmin_sear_up_1ass extends Fragment {
 
     private void update(){
 
-        steassurancetxt=steassurance.getText().toString();
-        numpoltxt=numpol.getText().toString();
-        datevaldtxt=datevald.getText().toString();
-        datevalatxt=datevala.getText().toString();
-
-        Toast.makeText(getContext(),datevalatxt,Toast.LENGTH_SHORT).show();
-
-
-        if (steassurancechanged()||numpolchanged()||datevalachanged()||datevaldchanged()) {
+        //Toast.makeText(getContext(),datevalatxt,Toast.LENGTH_SHORT).show();
+        if ((steassurancechanged()+numpolchanged()+datevalachanged()+datevaldchanged())>=1) {
             Toast.makeText(getContext(),"Assure modifie",Toast.LENGTH_SHORT).show();
         }
         else{
@@ -225,43 +235,70 @@ public class sadmin_sear_up_1ass extends Fragment {
         }
     }
 
-    public boolean steassurancechanged(){
+    public int steassurancechanged(){
         //Toast.makeText(getContext(),steassurance.getText(),Toast.LENGTH_SHORT).show();
-        //Toast.makeText(getContext(),steassurancetxt,Toast.LENGTH_SHORT).show();
 
-        if(!steassurancetxt.equals(steassurance.getText())){
-            ref.child("assure").child("steassurance").setValue(steassurance.getText().toString());
+        if(!steassurancetxt.equals(steassurance.getText().toString())){
+            ref.child(idtxt).child("steassurance").setValue(steassurance.getText().toString());
             steassurancetxt=steassurance.getText().toString();
             steassurance.setText(steassurancetxt);
-        return true;}
+            Toast.makeText(getContext(),"steass",Toast.LENGTH_SHORT).show();
+            return 1;}
         else
-            return false;
+            return 0;
     }
-    public boolean numpolchanged(){
+    public int numpolchanged(){
         if(!numpoltxt.equals(numpol.getText().toString())){
-            ref.child("assure").child("numpolice").setValue(numpol.getText().toString());
+            ref.child(idtxt).child("numpolice").setValue(numpol.getText().toString());
             numpoltxt=numpol.getText().toString();
-            return true;}
-        else return false;
+            numpol.setText(numpoltxt);
+            return 1;}
+        else return 0;
     }
-    public boolean datevaldchanged(){
+    public int datevaldchanged(){
         if(!datevaldtxt.equals(datevald.getText().toString())){
-            ref.child("assure").child("datevald").setValue(datevald.getText().toString());
+            ref.child(idtxt).child("datevald").setValue(datevald.getText().toString());
             datevaldtxt=datevald.getText().toString();
             datevald.setText(datevaldtxt);
-            return true;}
-        else return false;
+            return 1;}
+        else return 0;
     }
-    public boolean datevalachanged(){
+    public int datevalachanged(){
         if(!datevalatxt.equals(datevala.getText().toString())){
-            ref.child("assure").child("datevala").setValue(datevala.getText().toString());
+            ref.child(idtxt).child("datevala").setValue(datevala.getText().toString());
             datevalatxt=datevala.getText().toString();
             datevala.setText(datevalatxt);
-            return true;}
-        else return false;
+            return 1;}
+        else return 0;
     }
 
+    private void delete(DialogInterface dialogInterface) {
+         ref.child(idtxt).removeValue();
+                // have toadd something to go back similar to clicking on go back
+                Toast.makeText(getContext(),"Assure supprime", Toast.LENGTH_SHORT).show();
+                dialogInterface.cancel();
 
+        }
+
+        private void del_builder(){
+        AlertDialog.Builder builder= new AlertDialog.Builder(getContext());
+        builder.setCancelable(true);
+        builder.setTitle("Alert!");
+        builder.setMessage("Voulez vous vraiment supprimer cet assure definitivement?");
+        builder.setPositiveButton("Confirmer", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                delete(dialogInterface);
+
+            }
+        }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        })
+        .show();
+    }
 
     public void onClick(View view) {
         if(view==btnupdate){
@@ -269,7 +306,15 @@ public class sadmin_sear_up_1ass extends Fragment {
         }
 
         if(view==btndelete){
-            deleteass();
+            del_builder();
+        }
+
+        if(view==deactivate){
+            if(etat.getText().equals("Active")){
+                ref.child(idtxt).child("activate").setValue(0);
+                etat.setText("Desactive");}
+            else {ref.child(idtxt).child("activate").setValue(1);
+                etat.setText("Active");}
         }
     }
 

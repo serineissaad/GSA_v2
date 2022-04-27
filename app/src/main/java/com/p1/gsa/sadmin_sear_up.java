@@ -150,7 +150,7 @@ public class sadmin_sear_up extends Fragment implements View.OnClickListener{
                         }catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        buildRecyclerView();
+                        //buildRecyclerView();
 
                     }
                 }, new Response.ErrorListener() {
@@ -162,11 +162,11 @@ public class sadmin_sear_up extends Fragment implements View.OnClickListener{
         requesthandler.getInstance(getContext()).addToRequestQueue(str);
     }
 
-    private void buildRecyclerView() {
-        recyclerView2.setHasFixedSize(true);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
-        adpt2=new myadapter_sear_up(filterdlist);
-        recyclerView2.setAdapter(adpt2);}
+//    private void buildRecyclerView() {
+//        recyclerView2.setHasFixedSize(true);
+//        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+//        adpt2=new myadapter_sear_up(filterdlist);
+//        recyclerView2.setAdapter(adpt2);}
 
 
     @Override
@@ -180,7 +180,12 @@ public class sadmin_sear_up extends Fragment implements View.OnClickListener{
                     if(snapshot.exists()){
                         filterdlist=new ArrayList<>();
                         for(DataSnapshot data:snapshot.getChildren()){
-                            filterdlist.add(data.getValue(assure.class));
+                            assure as=data.getValue(assure.class);
+                            as.setId(data.getKey());
+                            //data.getValue(assure.class).setId(data.getKey());
+                            //Toast.makeText(getContext(),as.getId(),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(),data.getValue(assure.class).getId(),Toast.LENGTH_LONG).show();
+                            filterdlist.add(as);
                         }
                         myadapter_sear_up adpt= new myadapter_sear_up(filterdlist);
                         recyclerView2.setAdapter(adpt);

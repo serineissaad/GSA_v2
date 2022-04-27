@@ -136,16 +136,11 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-
-                    DatabaseReference ref= FirebaseDatabase.getInstance().getReference("admin");
-                    String userid=user.getUid();
-
-                    DatabaseReference ref2= FirebaseDatabase.getInstance().getReference("admin").child(userid);
-                    final Query userQuery = FirebaseDatabase.getInstance().getReference().child("admin/"+userid);//.equalTo(emailatxt);//.orderByChild("admin/emaila").equalTo(emailatxt);
-                    //Toast.makeText(getApplicationContext(),"ref2 key: "+ref2.getParent(),Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getApplicationContext(),"ref: "+ref2,Toast.LENGTH_LONG).show();
-                    userQuery.addChildEventListener(new ChildEventListener() {
+                    radbtn=findViewById(raddgrp.getCheckedRadioButtonId());
+                    String type=radbtn.getText().toString();
+                    String userid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    DatabaseReference v= FirebaseDatabase.getInstance().getReference().child(type).child(userid);//c t get reference de admin, c tt
+/*                    userQuery.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             //Get the node from the datasnapshot
@@ -153,51 +148,68 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
                             String data = dataSnapshot.toString();
                             Toast.makeText(getApplicationContext(),"parent: "+myParentNode,Toast.LENGTH_SHORT).show();
                             Toast.makeText(getApplicationContext(),"data: "+data,Toast.LENGTH_SHORT).show();
-
                         }
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
 
                         @Override
-                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        }
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
 
                         @Override
-                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                        }
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
 
                         @Override
-                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });*/
 
 
                     //if(user.isEmailVerified()){
-                        radbtn=findViewById(raddgrp.getCheckedRadioButtonId());
-                        switch (radbtn.getText().toString()){
-                            case "Admin":
-                                startActivity(new Intent(logina.this,nav_draw.class));
-                                finish();
+                        //radbtn=findViewById(raddgrp.getCheckedRadioButtonId());\
+                    if(v!=null){
+                    v.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            switch (type){
+                            case "admin": {
+                                if (snapshot.getValue(admin.class)!=null) {
+                                    startActivity(new Intent(logina.this, nav_draw.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "login failed..Check user type selected", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                                 break;
-                            case"Assure":
-                                startActivity(new Intent(logina.this,signupa.class));
-                                finish();
+                            case"assure":{
+                                if (snapshot.getValue(assure.class)!=null) {
+                                    //Toast.makeText(getApplicationContext(),snapshot.getValue(assure.class).getEmaila() , Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(logina.this,signupass.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "login failed..Check user type selected", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                                 break;
-                            case"Expert":
-                                startActivity(new Intent(logina.this,signupa.class));
-                                finish();
+                            case"expert":{
+
+                            }
                                 break;
                     //    }
                     //}else{
                     //    user.sendEmailVerification();
                     //    Toast.makeText(getApplicationContext(),"Check your email to verify your account!",Toast.LENGTH_SHORT).show();
                     }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getApplicationContext(),"Something wrong",Toast.LENGTH_SHORT).show();
+                        }
+                    });}
+                    else{
+                        Toast.makeText(getApplicationContext(), "login failed..Check user type selected", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }else{
                     Toast.makeText(getApplicationContext(),"Failed to login",Toast.LENGTH_SHORT).show();
                 }

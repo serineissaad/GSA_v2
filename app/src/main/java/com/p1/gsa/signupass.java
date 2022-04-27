@@ -11,13 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.HashMap;
 
@@ -166,6 +171,31 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
                             assure ass=new assure(nomatxt,prenomatxt,adresseatxt,steassurancetxt,numpolicetxt,
                     datevaldtxt,datevalatxt,martyvtxt,
                     immatrivtxt,agenceatxt,emailatxt);
+
+                            final Query userQuery = FirebaseDatabase.getInstance().getReference().child("assure");//.equalTo(emailatxt);//.orderByChild("admin/emaila").equalTo(emailatxt);
+                            userQuery.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    //Get the node from the datasnapshot
+                                    String myParentNode = dataSnapshot.getKey();
+                                    ass.setId(myParentNode);
+                                    String data = dataSnapshot.toString();
+                                    Toast.makeText(getApplicationContext(),"parent: "+myParentNode,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"parent: "+ass.getId(),Toast.LENGTH_SHORT).show();
+                                }
+                                @Override
+                                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+                                @Override
+                                public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
+
+                                @Override
+                                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) { }
+                            });
+
 
                             FirebaseDatabase.getInstance().getReference("assure")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

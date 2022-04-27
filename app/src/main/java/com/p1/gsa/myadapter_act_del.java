@@ -17,8 +17,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.ArrayList;
 
-public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_act_del.myviewholder> /*RecyclerView.Adapter<myadapter_act_del.myviewholder> */{
-
+public class myadapter_act_del extends RecyclerView.Adapter<myadapter_act_del.myviewholder>/*FirebaseRecyclerAdapter<assure,myadapter_act_del.myviewholder>*/  {
+    ArrayList<assure> asslist;
     //ArrayList<assure> asslist;
     //ArrayList<assure> asslistsear;
     //LinearLayout lnlyt;
@@ -26,14 +26,18 @@ public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_
     OnItemClickListener listener;
     String emailatxt;
 
+    public myadapter_act_del(ArrayList<assure> asslist) {
+        this.asslist = asslist;
+    }
+
 //    public myadapter_act_del(ArrayList<assure> asslist) {
 //        this.asslist = asslist;
 //        asslistsear=new ArrayList<>(asslist);
 //    }
 
-    public  myadapter_act_del(@NonNull FirebaseRecyclerOptions<assure> options){
-        super(options);
-    }
+//    public  myadapter_act_del(@NonNull FirebaseRecyclerOptions<assure> options){
+//        super(options);
+//    }
 
     public static Toast makeText (Context context, CharSequence text, int duration){
         return makeText(context,text,duration);
@@ -54,7 +58,7 @@ public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ass_row_ad,parent,false);
         //myviewholder v=new myviewholder(view,listener);
-        myviewholder v=new myviewholder(view);
+        myviewholder v=new myviewholder(view,listener);
         return  v;
     }
 
@@ -96,7 +100,21 @@ public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_
 //    }
 
     @Override
-    protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull assure model) {
+    public void onBindViewHolder(@NonNull myviewholder holder, int position/*, @NonNull assure model*/) {
+        holder.noma.setText(asslist.get(position).getNoma());
+        holder.emaila.setText(asslist.get(position).getEmaila());
+        holder.adressea.setText(asslist.get(position).getAdressea());
+        holder.agencea.setText(asslist.get(position).getAgencea());
+        holder.martyv.setText(asslist.get(position).getMartyv());
+        holder.numpolice.setText(asslist.get(position).getNumpolice());
+        holder.immatriv.setText(asslist.get(position).getImmatriv());
+        holder.prenoma.setText(asslist.get(position).getPrenoma());
+        holder.datevala.setText(asslist.get(position).getDatevala());
+        holder.datevald.setText(asslist.get(position).getDatevald());
+        holder.steassurance.setText(asslist.get(position).getSteassurance());
+        //holder.id.setText(asslist.get(position).getId());
+
+        /*if(model.getActivate()==1){
         holder.noma.setText(model.getNoma());
         holder.emaila.setText(model.getEmaila());
         holder.adressea.setText(model.getAdressea());
@@ -108,8 +126,32 @@ public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_
         holder.datevala.setText(model.getDatevala());
         holder.datevald.setText(model.getDatevald());
         holder.steassurance.setText(model.getSteassurance());
+        holder.imgdelete.setVisibility(View.VISIBLE);
+        holder.imgactivate.setVisibility(View.VISIBLE);}
+        else{//holder..setVisibility(View.GONE);
+        holder.noma.setVisibility(View.GONE);
+        holder.emaila.setVisibility(View.GONE);
+        holder.adressea.setVisibility(View.GONE);
+        holder.agencea.setVisibility(View.GONE);
+        holder.martyv.setVisibility(View.GONE);
+        holder.numpolice.setVisibility(View.GONE);
+        holder.immatriv.setVisibility(View.GONE);
+        holder.prenoma.setVisibility(View.GONE);
+        holder.datevala.setVisibility(View.GONE);
+        holder.datevald.setVisibility(View.GONE);
+        holder.steassurance.setVisibility(View.GONE);
+        holder.lncontainor.setVisibility(View.GONE);
+        //holder.imgactivate.setVisibility(View.GONE);
+        //holder.imgdelete.setVisibility(View.GONE);
+    }*/
+
 
     //Glide.with(holder.img.getContext()).load(model.getPurl()).into(holder.img);
+    }
+
+    @Override
+    public int getItemCount() {
+        return asslist.size();
     }
 
     /*private void filter(String text) {
@@ -131,9 +173,10 @@ public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_
 //    }
 
     class myviewholder extends RecyclerView.ViewHolder{
-        TextView emaila,noma,prenoma,agencea,immatriv,numpolice,adressea,datevald,datevala,steassurance,martyv;
+        TextView id,emaila,noma,prenoma,agencea,immatriv,numpolice,adressea,datevald,datevala,steassurance,martyv;
         RelativeLayout lncontainor;
-        public myviewholder(@NonNull View itemView/*,final OnItemClickListener lst*/) {
+
+        public myviewholder(@NonNull View itemView,final OnItemClickListener lst) {
             super(itemView);
             emaila=itemView.findViewById(R.id.emailass);
             noma=itemView.findViewById(R.id.nomass);
@@ -146,6 +189,7 @@ public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_
             prenoma=itemView.findViewById(R.id.prenomass);
             adressea=itemView.findViewById(R.id.adressea);
             steassurance=itemView.findViewById(R.id.steassurance);
+            //id=itemView.findViewById(R.id.idass);
 
             lncontainor=itemView.findViewById(R.id.asscontainor);
 
@@ -164,17 +208,17 @@ public class myadapter_act_del extends FirebaseRecyclerAdapter<assure,myadapter_
 //                }
 //            });
 //
-//           imgactivate.setOnClickListener(new View.OnClickListener() {
-//               @Override
-//               public void onClick(View view) {
-//                   if (lst != null) {
-//                       int position = getAdapterPosition();
-//                       if (position != RecyclerView.NO_POSITION) {
-//                           lst.onactivate(position);
-//                       }
-//                   }
-//               }
-//           });
+           imgactivate.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   if (lst != null) {
+                       int position = getAdapterPosition();
+                       if (position != RecyclerView.NO_POSITION) {
+                           lst.onactivate(position);
+                       }
+                   }
+               }
+           });
         }
     }
 

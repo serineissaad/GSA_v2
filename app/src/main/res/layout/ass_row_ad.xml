@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
     android:elevation="4dp">
@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/asscontainor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
@@ -47,6 +47,7 @@
             android:text="nom"
             android:textSize="25dp"
             android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/prenomass"
@@ -159,7 +160,10 @@
             android:textSize="25dp" />
 
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#000"/>
 
 
 </androidx.cardview.widget.CardView>

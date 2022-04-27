@@ -2,7 +2,8 @@ package com.p1.gsa;
 
 public class assure {
     private String noma,prenoma,adressea,datevald,datevala,agencea,steassurance,emaila;
-    private String numpolice,martyv,immatriv;
+    private String numpolice,martyv,immatriv,id;
+    private int activate;
 
 
     public String getAdressea() {
@@ -34,6 +35,7 @@ public class assure {
     public assure (String noma, String prenoma, String adressea, String steassurance, String numpolice,
                    String datevald, String datevala, String martyv, String immatriv, String agencea, String emaila){
 
+        //this.id=getId();
         this.emaila = emaila;this.prenoma = prenoma;this.adressea = adressea;
         this.noma = noma;this.steassurance = steassurance;
         this.numpolice = numpolice;this.datevala = datevala;
@@ -101,5 +103,17 @@ public class assure {
 
     public void setNoma(String noma) {
         this.noma = noma;
+    }
+
+    public String getId() { return id; }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getActivate() { return activate; }
+
+    public void setActivate(int activate) {
+        this.activate = activate;
     }
 }
