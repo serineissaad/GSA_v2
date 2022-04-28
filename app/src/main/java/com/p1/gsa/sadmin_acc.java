@@ -103,6 +103,7 @@ public class sadmin_acc extends Fragment {
         btnlogout=v.findViewById(R.id.btnlogout);
         btnaddadmin=v.findViewById(R.id.btnaddadmin);
         btnlogout.setOnClickListener(this::onClick);
+        btnaddadmin.setOnClickListener(this::onClick);
 
         //email.setText(sharedrefmanager.getInstance(getContext()).getemaila());
         //nom.setText(sharedrefmanager.getInstance(getContext()).getnoma());

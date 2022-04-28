@@ -41,6 +41,7 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signupass);
 
+
         //if(sharedrefmanager.getInstance(this).isloggedin()){
           //  finish();
             //startActivity(new Intent(this,sadminpage.class));
@@ -64,34 +65,13 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
         btnsignup=findViewById(R.id.btnsignup);
         btnsignup.setOnClickListener(this);
 
-
-//        btnsignup.setOnClickListener(v ->{
-//            assure ass=new assure(noma.getText().toString(),prenoma.getText().toString(),
-//                    adressea.getText().toString(),steassurance.getText().toString(),numpolice.getText().toString(),
-//                    datevald.getText().toString(),datevala.getText().toString(),martyv.getText().toString(),
-//                    immatriv.getText().toString(),agencea.getText().toString(),emaila.getText().toString());
-//
-//            daa.addass(ass).addOnSuccessListener(er->{
-//                Toast.makeText(this,"Assure enregistre",Toast.LENGTH_SHORT).show();
-//            }).addOnFailureListener(er->{
-//                Toast.makeText(this,""+er.getMessage(),Toast.LENGTH_SHORT).show();
-//            });
-//
-//        });
-
-//        btnsignup.setOnClickListener(v ->{
-//            HashMap<String,Object> hashmap=new HashMap<>();
-//            hashmap.put("noma",noma.getText().toString());
-//            hashmap.put("prenoma",prenoma.getText().toString());
-//            hashmap.put("emaila",emaila.getText().toString());
-//
-//            daa.update("-N01OY2DoGgpHsctr1ys",hashmap).addOnSuccessListener(er->{
-//                Toast.makeText(this,"Assure modifie",Toast.LENGTH_SHORT).show();
-//            }).addOnFailureListener(er->{
-//                Toast.makeText(this,""+er.getMessage(),Toast.LENGTH_SHORT).show();
-//            });
-//
-//        });
+        ///////delete from auth, but use another idea thiss wrong////////
+        String id=FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+        String key=FirebaseDatabase.getInstance().getReference().child("assure")
+                .child(id).getKey();
+        if(key.equals(id))
+        Toast.makeText(getApplicationContext(),key,Toast.LENGTH_SHORT).show();
+        //////////////////////////////////////////////////////////////
 
     }
 

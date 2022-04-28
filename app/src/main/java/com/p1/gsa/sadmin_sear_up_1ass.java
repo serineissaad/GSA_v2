@@ -1,5 +1,6 @@
 package com.p1.gsa;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -43,6 +45,7 @@ public class sadmin_sear_up_1ass extends Fragment {
     TextView noma,prenoma,emaila,adressea,immatriv,martyv,etat;
     EditText steassurance,numpol,datevald,datevala;
     ImageView deactivate;
+    private FirebaseAuth mAuth;
 
     Button btndelete,btnupdate;
 
@@ -131,8 +134,6 @@ public class sadmin_sear_up_1ass extends Fragment {
         datevald.setText(datevaldtxt);
         datevala.setText(datevalatxt);
         numpol.setText(numpoltxt);
-
-       // Toast.makeText(getContext(),ref.child(idtxt).child("activate").toString(),Toast.LENGTH_SHORT).show();
 
         if(activate==1){
             etat.setText("Active");
@@ -272,15 +273,15 @@ public class sadmin_sear_up_1ass extends Fragment {
         else return 0;
     }
 
-    private void delete(DialogInterface dialogInterface) {
+    private Boolean delete() {
          ref.child(idtxt).removeValue();
                 // have toadd something to go back similar to clicking on go back
                 Toast.makeText(getContext(),"Assure supprime", Toast.LENGTH_SHORT).show();
-                dialogInterface.cancel();
+                return true;
 
         }
 
-        private void del_builder(){
+        private void del_builder(View view){
         AlertDialog.Builder builder= new AlertDialog.Builder(getContext());
         builder.setCancelable(true);
         builder.setTitle("Alert!");
@@ -288,8 +289,15 @@ public class sadmin_sear_up_1ass extends Fragment {
         builder.setPositiveButton("Confirmer", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                delete(dialogInterface);
+                if(delete())
+                    dialogInterface.cancel();
 
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment nextfrag = new sadmin_sear_up();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,nextfrag).addToBackStack(null)
+                        .commit();
+                //getActivity().finish();
             }
         }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
@@ -306,7 +314,8 @@ public class sadmin_sear_up_1ass extends Fragment {
         }
 
         if(view==btndelete){
-            del_builder();
+            del_builder(view);
+
         }
 
         if(view==deactivate){

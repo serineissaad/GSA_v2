@@ -108,11 +108,12 @@ public class signupa extends AppCompatActivity implements View.OnClickListener{
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
-
+//                                        Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
+//                                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                                new sadmin_acc()).addToBackStack(null).commit();
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"failed to register",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
