@@ -104,14 +104,14 @@ public class myadapter_act_del extends RecyclerView.Adapter<myadapter_act_del.my
         holder.noma.setText(asslist.get(position).getNoma());
         holder.emaila.setText(asslist.get(position).getEmaila());
         holder.adressea.setText(asslist.get(position).getAdressea());
-        holder.agencea.setText(asslist.get(position).getAgencea());
-        holder.martyv.setText(asslist.get(position).getMartyv());
-        holder.numpolice.setText(asslist.get(position).getNumpolice());
-        holder.immatriv.setText(asslist.get(position).getImmatriv());
+        //holder.agencea.setText(asslist.get(position).getAgencea());
+        //holder.martyv.setText(asslist.get(position).getMartyv());
+        //holder.numpolice.setText(asslist.get(position).getNumpolice());
+        //holder.immatriv.setText(asslist.get(position).getImmatriv());
         holder.prenoma.setText(asslist.get(position).getPrenoma());
-        holder.datevala.setText(asslist.get(position).getDatevala());
-        holder.datevald.setText(asslist.get(position).getDatevald());
-        holder.steassurance.setText(asslist.get(position).getSteassurance());
+        //holder.datevala.setText(asslist.get(position).getDatevala());
+        //holder.datevald.setText(asslist.get(position).getDatevald());
+        //holder.steassurance.setText(asslist.get(position).getSteassurance());
         //holder.id.setText(asslist.get(position).getId());
 
         /*if(model.getActivate()==1){

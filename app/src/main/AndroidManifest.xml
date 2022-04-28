@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GSA">
         <activity
+            android:name=".signupass_vehic"
+            android:exported="false" />
+        <activity
             android:name=".forgotpassword"
             android:exported="false" />
         <activity

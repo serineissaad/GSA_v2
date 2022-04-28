@@ -78,7 +78,7 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
         //holder.agencea.setText(asslist.get(position).getAgencea());
         //holder.martyv.setText(asslist.get(position).getMartyv());
         //holder.numpolice.setText(asslist.get(position).getNumpolice());
-        holder.immatriv.setText(asslist.get(position).getImmatriv());
+        //holder.immatriv.setText(asslist.get(position).getImmatriv());
         holder.prenoma.setText(asslist.get(position).getPrenoma());
         //holder.datevala.setText(asslist.get(position).getDatevala());
         //holder.datevald.setText(asslist.get(position).getDatevald());
@@ -92,10 +92,7 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
                 //asslist.get(position).geto
                 Fragment nextfrag = new sadmin_sear_up_1ass(asslist.get(position).getId(),asslist.get(position).getActivate(),
                         asslist.get(position).getPrenoma(),asslist.get(position).getNoma(),
-                        asslist.get(position).getAdressea(), asslist.get(position).getSteassurance(),
-                        asslist.get(position).getMartyv(), asslist.get(position).getNumpolice(),
-                        asslist.get(position).getImmatriv(), asslist.get(position).getEmaila(),
-                        asslist.get(position).getDatevald(), asslist.get(position).getDatevala());
+                        asslist.get(position).getAdressea(), asslist.get(position).getEmaila());
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container,nextfrag).addToBackStack(null)
                         .commit();

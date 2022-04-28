@@ -2,6 +2,7 @@ package com.p1.gsa;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -148,9 +149,7 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            assure ass=new assure(nomatxt,prenomatxt,adresseatxt,steassurancetxt,numpolicetxt,
-                    datevaldtxt,datevalatxt,martyvtxt,
-                    immatrivtxt,agenceatxt,emailatxt);
+                            assure ass=new assure(prenomatxt,nomatxt,adresseatxt,emailatxt);
 
                             final Query userQuery = FirebaseDatabase.getInstance().getReference().child("assure");//.equalTo(emailatxt);//.orderByChild("admin/emaila").equalTo(emailatxt);
                             userQuery.addChildEventListener(new ChildEventListener() {
@@ -159,9 +158,7 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
                                     //Get the node from the datasnapshot
                                     String myParentNode = dataSnapshot.getKey();
                                     ass.setId(myParentNode);
-                                    String data = dataSnapshot.toString();
-                                    Toast.makeText(getApplicationContext(),"parent: "+myParentNode,Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getApplicationContext(),"parent: "+ass.getId(),Toast.LENGTH_SHORT).show();
+//                                    String data = dataSnapshot.toString();
                                 }
                                 @Override
                                 public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
@@ -184,6 +181,19 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(signupass.this, signupass_vehic.class);
+                                        Bundle bundle = new Bundle();
+//                                        bundle.putString("noma",nomatxt);
+//                                        bundle.putString("prenoma",prenomatxt);
+//                                        bundle.putString("adressea",adresseatxt);
+//                                        bundle.putString("emaila",emailatxt);
+//                                        bundle.putString("passworda",passwordatxt);
+                                        bundle.putString("iduser",FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        bundle.putInt("i",1);
+
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
+                                        finish();
 
                                     }
                                     else{

@@ -55,9 +55,7 @@ public class sadmin_sear_up_1ass extends Fragment {
 
     public sadmin_sear_up_1ass() {
     }
-    public sadmin_sear_up_1ass(String id,int activate,String prenomtxt,String nomtxt,String adressetxt,String steassurancetxt,
-                               String martyvtxt,String numpoltxt,String immatrivtxt,String emailtxt,
-                               String datevaldtxt,String datevalatxt) {
+    public sadmin_sear_up_1ass(String id,int activate,String prenomtxt,String nomtxt,String adressetxt,String emailtxt) {
         this.idtxt=id;this.activate=activate;
         this.prenomtxt=prenomtxt;this.martyvtxt=martyvtxt;
         this.nomtxt=nomtxt;this.numpoltxt=numpoltxt;

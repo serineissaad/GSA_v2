@@ -131,7 +131,7 @@ public class sadmin_sear_up extends Fragment implements View.OnClickListener{
                                     String immatriv= String.valueOf(obj.getInt("immatriv"));
                                     String agencea=obj.getString("agencea");
                                     String emaila=obj.getString("emaila");
-                                    assure ass=new assure(noma,prenoma,adressea,steassurance,numpolice,datevald,datevala,martyv,immatriv,agencea,emaila);
+                                    assure ass=new assure(prenoma,noma,adressea,emaila);
                                     String t=text.toLowerCase();
                                         if (noma.toLowerCase().contains(t)||emaila.toLowerCase().contains(t)||
                                                 prenoma.toLowerCase().contains(t)||agencea.toLowerCase().contains(t)||
@@ -218,12 +218,7 @@ public class sadmin_sear_up extends Fragment implements View.OnClickListener{
         ArrayList<assure> mylist=new ArrayList<>();
         for(assure object: filterdlist){
             if (object.getNoma().toLowerCase().contains(t)||object.getEmaila().toLowerCase().contains(t)||
-                    object.getPrenoma().toLowerCase().contains(t)||object.getAgencea().toLowerCase().contains(t)||
-                    object.getDatevald().toLowerCase().contains(t)||object.getDatevala().toLowerCase().contains(t)||
-                    object.getImmatriv().toLowerCase().contains(t)||object.getMartyv().toLowerCase().contains(t)||
-                    object.getNumpolice().toLowerCase().contains(t)||object.getSteassurance().toLowerCase().contains(t)||
-                    object.getAdressea().toLowerCase().contains(t)
-            ){
+                    object.getPrenoma().toLowerCase().contains(t)|| object.getAdressea().toLowerCase().contains(t)){
                 mylist.add(object);
             }
             else{
