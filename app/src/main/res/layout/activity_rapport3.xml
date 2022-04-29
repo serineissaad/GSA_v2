@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".rapport3">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="Recapitulatif"
+        android:textSize="30dp"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="100dp"
+        android:id="@+id/recapitulatif1">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/moeuv"
+            android:layout_marginTop="5dp"
+            android:hint="M. Main d'oeuvre"
+            android:inputType="numberDecimal"
+            android:textSize="25dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mpeint"
+            android:layout_marginTop="5dp"
+            android:hint="M. Peinture"
+            android:inputType="numberDecimal"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/recapitulatif2"
+        android:layout_below="@+id/recapitulatif1"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mtot"
+            android:layout_marginTop="5dp"
+            android:hint="M. Total"
+            android:inputType="numberDecimal"
+            android:textSize="25dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mhr"
+            android:layout_marginTop="5dp"
+            android:hint="Nbre. Heure"
+            android:inputType="number"
+            android:textSize="25dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mimmob"
+            android:layout_marginTop="5dp"
+            android:hint="T. Immobilisation /par Jour"
+            android:inputType="number"
+            android:textSize="25dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ltot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recapitulatif2"
+        android:layout_marginTop="20dp"
+        android:hint="En Lettres"
+        android:textSize="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/recapitulatif3"
+        android:layout_below="@+id/ltot">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txhr"
+            android:inputType="numberDecimal"
+            android:hint="T. horaire"
+            android:textSize="25dp"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txvt"
+            android:inputType="number"
+            android:hint="T. vetuste"
+            android:textSize="25dp"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nbp"
+            android:inputType="number"
+            android:hint="Nb Photos"
+            android:textSize="25dp"/>
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/observ"
+        android:layout_below="@+id/recapitulatif3"
+        android:layout_marginTop="20dp"
+        android:inputType="textCapSentences"
+        android:hint="Observation"
+        android:textStyle="bold"
+        android:textSize="25dp"/>
+
+    <Button
+        android:id="@+id/btnsubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/observ"
+        android:layout_marginTop="30dp"
+        android:text="Soumettre"
+        android:textSize="25dp" />
+
+
+
+
+
+
+
+
+</RelativeLayout>

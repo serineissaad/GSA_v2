@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GSA">
         <activity
+            android:name=".rapport3"
+            android:exported="false" />
+        <activity
+            android:name=".rapport2"
+            android:exported="false" />
+        <activity
+            android:name=".signupass"
+            android:exported="false" />
+        <activity
             android:name=".signupass_vehic"
             android:exported="false" />
         <activity
@@ -37,10 +46,10 @@
             android:name=".signupa"
             android:exported="false" />
         <activity
-            android:name=".signupass"
+            android:name=".logina"
             android:exported="false" />
         <activity
-            android:name=".logina"
+            android:name=".rapport1"
             android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
