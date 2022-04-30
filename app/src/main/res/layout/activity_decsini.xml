@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".decsini">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/temoinsacci"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Témoins: Nom et adresse"
+            android:inputType="text"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/texttitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Constat"
+            android:textSize="10dp"/>
+
+        <EditText
+            android:id="@+id/dateacci"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/texttitle"
+            android:layout_marginTop="5dp"
+            android:hint="Date d'accident"
+            android:inputType="date"
+            android:textSize="25dp"/>
+
+        <EditText
+            android:id="@+id/heureacci"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateacci"
+            android:layout_marginTop="5dp"
+            android:hint="Heure d'accident"
+            android:inputType="number"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/lieuacci"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/heureacci"
+            android:layout_marginTop="5dp"
+            android:hint="Lieu précis d'accident"
+            android:inputType="text"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/textd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Autres dégats matériels?"
+            android:textSize="25dp"/>
+
+       <!--
+
+-->
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+             <RadioGroup
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginTop="10dp"
+                 android:padding="10dp"
+                 android:id="@+id/radiog">
+                 <RadioButton
+                     android:layout_width="wrap_content"
+                     android:onClick="checkbtn"
+                     android:layout_height="wrap_content"
+                     android:textStyle="bold"
+                     android:textSize="14sp"
+                     android:text="oui"
+                     android:id="@+id/checkdoui"/>
+
+                 <RadioButton
+                     android:id="@+id/checkdnon"
+                     android:onClick="checkbtn"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:text="non"
+                     android:textSize="14sp"
+                     android:textStyle="bold" />
+             </RadioGroup>
+
+       </LinearLayout>
+
+
+
+        <!--      <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip">
+
+                <TextView
+                    android:id="@+id/textc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cochez les cases utiles."
+                    android:textSize="10dp"/>
+
+             <CheckBox
+                    android:id="@+id/checkc1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Heurtait à l'arriere, en roulant dans le meme sens et sur la meme file."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Roulait dans le meme sens et une file différente."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Roulait en sens inverse."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Provenait d'une chaussée différente."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Venait de droit (dans un carrefour)."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="S'engageait sur une place à sens giratoire."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Roulait sur une place à sens giratoire."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="En stationnement."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Quittait un stationnement."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Pronait un stationnement."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Reculait."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Doublait."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+
+                <CheckBox
+                    android:id="@+id/checkc13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Dépassement irrégulier."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Changeait de file."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Virait à droite."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Virait à gauche."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="S'engageait dans un parking, un lieu privé, un chemin de terre."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Sortait d'un parking, un lieu privé, un chemin de terre."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Empiétait sur la partie de la chaussée réservée à la circulation en sens inverse."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Roulait en sens interdit."
+                    android:textSize="20dp" android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Inobservation d'un signe de priorité."
+                    android:textSize="20dp" android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Faisait demi tour."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+                <CheckBox
+                    android:id="@+id/checkc23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:text="Ouvrait une portière."
+                    android:textSize="20dp"
+                    android:onClick="onCheckboxClicked"
+                    tools:ignore="OnClick" />
+
+            </LinearLayout> -->
+    <Button
+
+        android:id="@+id/btnvaliderd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="valider"
+        android:textSize="25dp" />
+
+</LinearLayout>
+</ScrollView>

@@ -13,6 +13,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GSA">
         <activity
+            android:name=".sharedpc"
+            android:exported="false"
+            android:label="@string/title_activity_sharedpc"
+            android:theme="@style/Theme.GSA.NoActionBar" />
+        <activity
+            android:name=".profilas"
+            android:exported="false"
+            android:label="@string/title_activity_profilas"
+            android:theme="@style/Theme.GSA.NoActionBar" />
+        <activity
+            android:name=".editmail"
+            android:exported="false"
+            android:label="@string/title_activity_editmail"
+            android:theme="@style/Theme.GSA.NoActionBar" />
+        <activity
+            android:name=".logina"
+            android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".forgotpassword"
             android:exported="false" />
         <activity
@@ -28,6 +52,9 @@
             android:name=".login"
             android:exported="false" />
         <activity
+            android:name=".pageaccass"
+            android:exported="false" />
+        <activity
             android:name=".signupas"
             android:exported="false" />
         <activity
@@ -37,14 +64,8 @@
             android:name=".signupass"
             android:exported="false" />
         <activity
-            android:name=".logina"
-            android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".decsini"
+            android:exported="false" />
     </application>
 
 </manifest>

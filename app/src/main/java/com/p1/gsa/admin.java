@@ -1,6 +1,7 @@
 package com.p1.gsa;
 
 public class admin {
+
     private String prenoma,noma,emaila;//pass;
 
     public admin() { }

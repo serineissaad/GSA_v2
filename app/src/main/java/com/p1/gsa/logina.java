@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
     TextView btnsignup,selected,forgotpassword;
     RadioGroup raddgrp;
     RadioButton radbtn;
+    RadioButton assurer;
     private ProgressDialog progressDialog;
 
     @Override
@@ -69,7 +71,7 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
 
         raddgrp=findViewById(R.id.radiogroup);
         selected=(TextView) findViewById(R.id.selected);
-
+        assurer=findViewById(R.id.assurer);
 
         //progressDialog=(progressDialog) findViewById(R.id.);
 
@@ -80,15 +82,18 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
 //        int radioid= raddgrp.getCheckedRadioButtonId();
 //        radbtn=findViewById(radioid);
 //        selected.setText(radbtn.getText());
+        if(view==btnsignup ){
+            if (assurer.isChecked()) {startActivity(new Intent(this,signupass.class));}
+            else Toast.makeText(getApplicationContext(),"Seuls les assurés peuvent s'inscrire.",Toast.LENGTH_SHORT).show();}
         switch (view.getId()){
-            case R.id.btnsignup:
-                startActivity(new Intent(this,signupa.class));
-                break;
+         //   case R.id.btnsignup:
+          //      startActivity(new Intent(this,signupa.class));
+           //     break;
             case R.id.btnlogin:
                 login();
                 break;
             case R.id.forgotpassword:
-                startActivity(new Intent(this, com.p1.gsa.forgotpassword.class));
+                startActivity(new Intent(this, com.p1.gsa.pageaccass.class));
                 break;
         }
     }
@@ -105,24 +110,24 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
         String passtxt=pass.getText().toString().trim();
 
         if(emailatxt.isEmpty()){
-            emaila.setError("Email is required");
+            emaila.setError("Ce champ est requis");
             emaila.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(emailatxt).matches()){
-            emaila.setError("Invalid email");
+            emaila.setError("Email invalide");
             emaila.requestFocus();
             return;
         }
 
         if(passtxt.isEmpty()){
-            pass.setError("Password is required");
+            pass.setError("Ce champs est requis");
             pass.requestFocus();
             return;
         }
         if(passtxt.length()<6){
-            pass.setError("Password must contain 6 at least 6 characters");
+            pass.setError("Un mot de passe doit être composé d'au moins 6 caractères");
             pass.requestFocus();
             return;
         }
@@ -145,7 +150,7 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
                                 startActivity(new Intent(logina.this,nav_draw.class));
                                 finish();
                                 break;
-                            case"Assure":
+                            case"Assuré":
                                 startActivity(new Intent(logina.this,signupa.class));
                                 finish();
                                 break;
@@ -156,10 +161,10 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
                         }
                     }else{
                         user.sendEmailVerification();
-                        Toast.makeText(getApplicationContext(),"Check your email to verify your account!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Veuillez vérifiez votre boite e-mail.",Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(getApplicationContext(),"Failed to login",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"L’e-mail ou le mot de passe que vous avez saisi n’est pas associé à un compte.",Toast.LENGTH_SHORT).show();
                 }
             }
         });

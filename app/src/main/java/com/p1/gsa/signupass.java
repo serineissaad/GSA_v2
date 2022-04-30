@@ -173,17 +173,17 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Votre inscription est enregistrée avec succès.",Toast.LENGTH_SHORT).show();
 
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Erreur",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Erreur",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

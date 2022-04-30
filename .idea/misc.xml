@@ -3,6 +3,43 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/cursor_color.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/half_circle.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/ic_addec.xml" value="0.1475" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.197" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/ic_login_bk.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/rectangle.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/drawable/small_cicle.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/font/poppins_semibold.xml" value="0.109375" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_decsini.xml" value="0.15" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_editmail.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_forgotpassword.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_listesini.xml" value="0.21" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_login.xml" value="0.18" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_nav_draw.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_pageaccass.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_profilas.xml" value="0.25" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_sadminpage.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_sharedpc.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_signupas.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/activity_signupass.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/ass_row_ad.xml" value="0.15" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/ass_row_su.xml" value="0.18" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/content_listesini.xml" value="0.1375" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/fragment_notification.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/fragment_sadmin_acc.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/fragment_sadmin_act.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/fragment_sadmin_sear_up.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/fragment_sadmin_sear_up_1ass.xml" value="0.18143459915611815" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/isinistre.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/pageaccass.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/layout/sini_row.xml" value="0.22" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/menu/search_menu.xml" value="0.1" />
+        <entry key="..\:/Users/HP/StudioProjects/GSA_v2/app/src/main/res/menu/searchas_menu.xml" value="0.1" />
         <entry key="..\:/Users/jp/AndroidStudioProjects/GSA/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1945" />
         <entry key="..\:/Users/jp/AndroidStudioProjects/GSA/app/src/main/res/layout/activity_loginas.xml" value="0.1" />
         <entry key="..\:/Users/jp/AndroidStudioProjects/GSA/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />

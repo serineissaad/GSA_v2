@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text="Changer l'e-mail"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_below="@id/t1"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text="Changer le mot de passe"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/t3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_below="@id/t2"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text="Informations personnelles"
+        android:textSize="20dp" />
+
+    </RelativeLayout>
+
+
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:elevation="4dp">
+    <!--app:cardUseCompatPadding="true"-->
+
+    <RelativeLayout
+        android:id="@+id/sinicontainor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <TextView
+            android:id="@+id/lieuacci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="lieuacci"
+            android:textSize="25dp" />
+
+
+        <TextView
+            android:id="@+id/heureacci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lieuacci"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="12dp"
+            android:inputType="text"
+            android:text="heureacc"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/temoinsacci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/heureacci"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="temoinsacci"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/dateacci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/temoinsacci"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="dateacci"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/degatsr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:text="degatsr"
+            android:textSize="25dp"
+            android:layout_below="@+id/dateacci"/>
+
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
