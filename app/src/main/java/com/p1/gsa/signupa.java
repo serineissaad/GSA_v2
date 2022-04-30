@@ -3,18 +3,13 @@ package com.p1.gsa;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,7 +29,7 @@ public class signupa extends AppCompatActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signupas);
+        setContentView(R.layout.activity_signupa);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -113,11 +108,12 @@ public class signupa extends AppCompatActivity implements View.OnClickListener{
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
-
+//                                        Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
+//                                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                                new sadmin_acc()).addToBackStack(null).commit();
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"failed to register",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

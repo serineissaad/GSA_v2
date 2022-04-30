@@ -3,6 +3,7 @@ package com.p1.gsa;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -13,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +22,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class logina extends AppCompatActivity implements View.OnClickListener {
@@ -43,7 +45,6 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
     TextView btnsignup,selected,forgotpassword;
     RadioGroup raddgrp;
     RadioButton radbtn;
-    RadioButton assurer;
     private ProgressDialog progressDialog;
 
     @Override
@@ -71,7 +72,7 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
 
         raddgrp=findViewById(R.id.radiogroup);
         selected=(TextView) findViewById(R.id.selected);
-        assurer=findViewById(R.id.assurer);
+
 
         //progressDialog=(progressDialog) findViewById(R.id.);
 
@@ -82,18 +83,15 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
 //        int radioid= raddgrp.getCheckedRadioButtonId();
 //        radbtn=findViewById(radioid);
 //        selected.setText(radbtn.getText());
-        if(view==btnsignup ){
-            if (assurer.isChecked()) {startActivity(new Intent(this,signupass.class));}
-            else Toast.makeText(getApplicationContext(),"Seuls les assurés peuvent s'inscrire.",Toast.LENGTH_SHORT).show();}
         switch (view.getId()){
-         //   case R.id.btnsignup:
-          //      startActivity(new Intent(this,signupa.class));
-           //     break;
+            case R.id.btnsignup:
+                startActivity(new Intent(this,signupa.class));
+                break;
             case R.id.btnlogin:
                 login();
                 break;
             case R.id.forgotpassword:
-                startActivity(new Intent(this, com.p1.gsa.pageaccass.class));
+                startActivity(new Intent(this, com.p1.gsa.forgotpassword.class));
                 break;
         }
     }
@@ -110,24 +108,24 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
         String passtxt=pass.getText().toString().trim();
 
         if(emailatxt.isEmpty()){
-            emaila.setError("Ce champ est requis");
+            emaila.setError("Email is required");
             emaila.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(emailatxt).matches()){
-            emaila.setError("Email invalide");
+            emaila.setError("Invalid email");
             emaila.requestFocus();
             return;
         }
 
         if(passtxt.isEmpty()){
-            pass.setError("Ce champs est requis");
+            pass.setError("Password is required");
             pass.requestFocus();
             return;
         }
         if(passtxt.length()<6){
-            pass.setError("Un mot de passe doit être composé d'au moins 6 caractères");
+            pass.setError("Password must contain 6 at least 6 characters");
             pass.requestFocus();
             return;
         }
@@ -138,33 +136,82 @@ public class logina extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-
-                    DatabaseReference ref= FirebaseDatabase.getInstance().getReference("admin");
-                    String userid=user.getUid();
-
-                    if(user.isEmailVerified()){
-                        radbtn=findViewById(raddgrp.getCheckedRadioButtonId());
-                        switch (radbtn.getText().toString()){
-                            case "Admin":
-                                startActivity(new Intent(logina.this,nav_draw.class));
-                                finish();
-                                break;
-                            case"Assuré":
-                                startActivity(new Intent(logina.this,signupa.class));
-                                finish();
-                                break;
-                            case"Expert":
-                                startActivity(new Intent(logina.this,signupa.class));
-                                finish();
-                                break;
+                    radbtn=findViewById(raddgrp.getCheckedRadioButtonId());
+                    String type=radbtn.getText().toString();
+                    String userid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    DatabaseReference v= FirebaseDatabase.getInstance().getReference().child(type).child(userid);//c t get reference de admin, c tt
+/*                    userQuery.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            //Get the node from the datasnapshot
+                            String myParentNode = dataSnapshot.getKey();
+                            String data = dataSnapshot.toString();
+                            Toast.makeText(getApplicationContext(),"parent: "+myParentNode,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"data: "+data,Toast.LENGTH_SHORT).show();
                         }
-                    }else{
-                        user.sendEmailVerification();
-                        Toast.makeText(getApplicationContext(),"Veuillez vérifiez votre boite e-mail.",Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });*/
+
+
+                    //if(user.isEmailVerified()){
+                        //radbtn=findViewById(raddgrp.getCheckedRadioButtonId());\
+                    if(v!=null){
+                    v.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            switch (type){
+                            case "admin": {
+                                if (snapshot.getValue(admin.class)!=null) {
+                                    startActivity(new Intent(logina.this, nav_draw.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "login failed..Check user type selected", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                                break;
+                            case"assure":{
+                                if (snapshot.getValue(assure.class)!=null) {
+                                    //Toast.makeText(getApplicationContext(),snapshot.getValue(assure.class).getEmaila() , Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(logina.this,signupass.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "login failed..Check user type selected", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                                break;
+                            case"expert":{
+
+                            }
+                                break;
+                    //    }
+                    //}else{
+                    //    user.sendEmailVerification();
+                    //    Toast.makeText(getApplicationContext(),"Check your email to verify your account!",Toast.LENGTH_SHORT).show();
                     }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getApplicationContext(),"Something wrong",Toast.LENGTH_SHORT).show();
+                        }
+                    });}
+                    else{
+                        Toast.makeText(getApplicationContext(), "login failed..Check user type selected", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }else{
-                    Toast.makeText(getApplicationContext(),"L’e-mail ou le mot de passe que vous avez saisi n’est pas associé à un compte.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Failed to login",Toast.LENGTH_SHORT).show();
                 }
             }
         });

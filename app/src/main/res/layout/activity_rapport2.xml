@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".rapport2">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="Fourniture"
+        android:textSize="30dp"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="100dp"
+        android:id="@+id/fourniture1">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nom1"
+            android:layout_marginTop="5dp"
+            android:hint="nom"
+            android:inputType="textPersonName"
+            android:textSize="25dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/qte1"
+            android:layout_marginTop="5dp"
+            android:hint="Quantite"
+            android:inputType="number"
+            android:textSize="25dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/prix1"
+            android:layout_marginTop="5dp"
+            android:hint="prix"
+            android:inputType="numberDecimal"
+            android:textSize="25dp" />
+    </LinearLayout>
+           <LinearLayout
+               android:layout_height="wrap_content"
+               android:layout_width="match_parent"
+               android:id="@+id/fourniture2"
+               android:layout_below="@+id/fourniture1"
+               android:layout_marginTop="50dp">
+
+               <EditText
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/nom2"
+                   android:layout_marginTop="5dp"
+                   android:hint="nom"
+                   android:inputType="textPersonName"
+                   android:textSize="25dp" />
+               <EditText
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/qte2"
+                   android:layout_marginTop="5dp"
+                   android:hint="Quantite1"
+                   android:inputType="number"
+                   android:textSize="25dp" />
+               <EditText
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/prix2"
+                   android:layout_marginTop="5dp"
+                   android:hint="prix"
+                   android:inputType="numberDecimal"
+                   android:textSize="25dp" />
+           </LinearLayout>
+
+    <Button
+            android:id="@+id/btnadd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fourniture2"
+            android:layout_marginTop="50dp"
+            android:text="Ajouter"
+            android:textSize="25dp" />
+
+    <Button                                          
+            android:id="@+id/btnext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnadd"
+            android:layout_marginTop="30dp"
+            android:text="Suivant"
+            android:textSize="25dp" />
+</RelativeLayout>
+

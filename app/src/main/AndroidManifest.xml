@@ -13,29 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GSA">
         <activity
-            android:name=".sharedpc"
-            android:exported="false"
-            android:label="@string/title_activity_sharedpc"
-            android:theme="@style/Theme.GSA.NoActionBar" />
+            android:name=".rapport3"
+            android:exported="false" />
         <activity
-            android:name=".profilas"
-            android:exported="false"
-            android:label="@string/title_activity_profilas"
-            android:theme="@style/Theme.GSA.NoActionBar" />
+            android:name=".rapport2"
+            android:exported="false" />
         <activity
-            android:name=".editmail"
-            android:exported="false"
-            android:label="@string/title_activity_editmail"
-            android:theme="@style/Theme.GSA.NoActionBar" />
+            android:name=".signupass"
+            android:exported="false" />
         <activity
-            android:name=".logina"
-            android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".signupass_vehic"
+            android:exported="false" />
         <activity
             android:name=".forgotpassword"
             android:exported="false" />
@@ -52,20 +40,23 @@
             android:name=".login"
             android:exported="false" />
         <activity
-            android:name=".pageaccass"
-            android:exported="false" />
-        <activity
             android:name=".signupas"
             android:exported="false" />
         <activity
             android:name=".signupa"
             android:exported="false" />
         <activity
-            android:name=".signupass"
+            android:name=".logina"
             android:exported="false" />
         <activity
-            android:name=".decsini"
-            android:exported="false" />
+            android:name=".rapport1"
+            android:exported="true"> <!-- android:theme="@style/Theme.GSA.NoActionBar" -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

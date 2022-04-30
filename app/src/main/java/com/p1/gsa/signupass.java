@@ -2,6 +2,7 @@ package com.p1.gsa;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -11,13 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.HashMap;
 
@@ -35,6 +41,7 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signupass);
+
 
         //if(sharedrefmanager.getInstance(this).isloggedin()){
           //  finish();
@@ -59,34 +66,13 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
         btnsignup=findViewById(R.id.btnsignup);
         btnsignup.setOnClickListener(this);
 
-
-//        btnsignup.setOnClickListener(v ->{
-//            assure ass=new assure(noma.getText().toString(),prenoma.getText().toString(),
-//                    adressea.getText().toString(),steassurance.getText().toString(),numpolice.getText().toString(),
-//                    datevald.getText().toString(),datevala.getText().toString(),martyv.getText().toString(),
-//                    immatriv.getText().toString(),agencea.getText().toString(),emaila.getText().toString());
-//
-//            daa.addass(ass).addOnSuccessListener(er->{
-//                Toast.makeText(this,"Assure enregistre",Toast.LENGTH_SHORT).show();
-//            }).addOnFailureListener(er->{
-//                Toast.makeText(this,""+er.getMessage(),Toast.LENGTH_SHORT).show();
-//            });
-//
-//        });
-
-//        btnsignup.setOnClickListener(v ->{
-//            HashMap<String,Object> hashmap=new HashMap<>();
-//            hashmap.put("noma",noma.getText().toString());
-//            hashmap.put("prenoma",prenoma.getText().toString());
-//            hashmap.put("emaila",emaila.getText().toString());
-//
-//            daa.update("-N01OY2DoGgpHsctr1ys",hashmap).addOnSuccessListener(er->{
-//                Toast.makeText(this,"Assure modifie",Toast.LENGTH_SHORT).show();
-//            }).addOnFailureListener(er->{
-//                Toast.makeText(this,""+er.getMessage(),Toast.LENGTH_SHORT).show();
-//            });
-//
-//        });
+        ///////delete from auth, but use another idea thiss wrong////////
+        String id=FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+        String key=FirebaseDatabase.getInstance().getReference().child("assure")
+                .child(id).getKey();
+        if(key.equals(id))
+        Toast.makeText(getApplicationContext(),key,Toast.LENGTH_SHORT).show();
+        //////////////////////////////////////////////////////////////
 
     }
 
@@ -163,9 +149,30 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            assure ass=new assure(nomatxt,prenomatxt,adresseatxt,steassurancetxt,numpolicetxt,
-                    datevaldtxt,datevalatxt,martyvtxt,
-                    immatrivtxt,agenceatxt,emailatxt);
+                            assure ass=new assure(prenomatxt,nomatxt,adresseatxt,emailatxt);
+
+                            final Query userQuery = FirebaseDatabase.getInstance().getReference().child("assure");//.equalTo(emailatxt);//.orderByChild("admin/emaila").equalTo(emailatxt);
+                            userQuery.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    //Get the node from the datasnapshot
+                                    String myParentNode = dataSnapshot.getKey();
+                                    ass.setId(myParentNode);
+//                                    String data = dataSnapshot.toString();
+                                }
+                                @Override
+                                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+                                @Override
+                                public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
+
+                                @Override
+                                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) { }
+                            });
+
 
                             FirebaseDatabase.getInstance().getReference("assure")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -173,17 +180,30 @@ public class signupass extends AppCompatActivity implements View.OnClickListener
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Toast.makeText(getApplicationContext(),"Votre inscription est enregistrée avec succès.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"registered",Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(signupass.this, signupass_vehic.class);
+                                        Bundle bundle = new Bundle();
+//                                        bundle.putString("noma",nomatxt);
+//                                        bundle.putString("prenoma",prenomatxt);
+//                                        bundle.putString("adressea",adresseatxt);
+//                                        bundle.putString("emaila",emailatxt);
+//                                        bundle.putString("passworda",passwordatxt);
+                                        bundle.putString("iduser",FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        bundle.putInt("i",1);
+
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
+                                        finish();
 
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(),"Erreur",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Erreur",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

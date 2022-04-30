@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,16 +43,14 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
     myadapter_act_del adpt;
     ImageView btndelete,btnactivate;
     String emailass;
-    ArrayList<assure> asslist;
 
+    ArrayList<assure> filterdlist;
+    DatabaseReference ref;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-
     public sadmin_act() {
-        // Required empty public constructor
     }
 
     public static sadmin_act newInstance(String param1, String param2) {
@@ -65,11 +70,7 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        */
+        //setContentView(R.layout.activity_nav_draw);
     }
 
     @Override
@@ -79,23 +80,33 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
         //return inflater.inflate(R.layout.fragment_sadmin_acc, container, false);
 
         View lnview = inflater.inflate(R.layout.fragment_sadmin_act, container, false);
-        recyclerView=lnview.findViewById(R.id.recycview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        recyclerView=lnview.findViewById(R.id.recycview);
+        //clerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ref = FirebaseDatabase.getInstance().getReference().child("assure");
+        filterdlist=new ArrayList<assure>();
 
         btndelete=lnview.findViewById(R.id.btndelete);
         btnactivate=lnview.findViewById(R.id.imgactivate);
-        asslist=new ArrayList<assure>();
+        //asslist=new ArrayList<assure>();
 
-        getass();
+        //getass();
+
+//        FirebaseRecyclerOptions<assure> options= new FirebaseRecyclerOptions.Builder<assure>()
+//                .setQuery(FirebaseDatabase.getInstance().getReference().child("assure"),assure.class)
+//                .build();
+
+
+//        adpt=new myadapter_act_del(options);
+//        recyclerView.setAdapter(adpt);
 
         Toast.makeText(getContext(),"returning VIEW",Toast.LENGTH_SHORT).show();
         return lnview;
 
     }
 
-
-    public boolean getass(){
+    /*public boolean getass(){
 
         StringRequest str=new StringRequest(Request.Method.GET, Constants.URL_GETASS,
                 new Response.Listener<String>() {
@@ -160,79 +171,77 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
         });
         requesthandler.getInstance(getContext()).addToRequestQueue(str);
         return true;
-    }
+    }*/
 
-    public void deleteass(String emailass){
-        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_DELETEASS, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject job=new JSONObject(response);
-                    if(!job.getBoolean("error")) {
-                        Toast.makeText(getContext(),"job false",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Toast.makeText(getContext(),"job true",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(),job.getString("message"),Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(getContext(), "error listener", Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getContext().getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("emaila",emailass);
-                return params;
-            }
-        };
-        requesthandler.getInstance(getContext()).addToRequestQueue(str);
-    }
+//    public void deleteass(String emailass){
+//        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_DELETEASS, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    JSONObject job=new JSONObject(response);
+//                    if(!job.getBoolean("error")) {
+//                        Toast.makeText(getContext(),"job false",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
+//                    }
+//                    else{
+//                        Toast.makeText(getContext(),"job true",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(),job.getString("message"),Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                //Toast.makeText(getContext(), "error listener", Toast.LENGTH_SHORT).show();
+//                //Toast.makeText(getContext().getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+//            }
+//        }){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params=new HashMap<String, String>();
+//                params.put("emaila",emailass);
+//                return params;
+//            }
+//        };
+//        requesthandler.getInstance(getContext()).addToRequestQueue(str);
+//    }
 
-    public void activateass(String emailass){
-        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_ACTIVATEASS, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject job=new JSONObject(response);
-                    if(!job.getBoolean("error")) {
-                        Toast.makeText(getContext(),"job false",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Toast.makeText(getContext(),"job true",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(),job.getString("message"),Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(getContext(), "error listener", Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getContext().getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("emaila",emailass);
-                return params;
-            }
-        };
-        requesthandler.getInstance(getContext()).addToRequestQueue(str);
-    }
-
-
+//    public void activateass(String emailass){
+//        StringRequest str=new StringRequest(Request.Method.POST, Constants.URL_ACTIVATEASS, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    JSONObject job=new JSONObject(response);
+//                    if(!job.getBoolean("error")) {
+//                        Toast.makeText(getContext(),"job false",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), job.getString("message"), Toast.LENGTH_LONG).show();
+//                    }
+//                    else{
+//                        Toast.makeText(getContext(),"job true",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(),job.getString("message"),Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                //Toast.makeText(getContext(), "error listener", Toast.LENGTH_SHORT).show();
+//                //Toast.makeText(getContext().getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+//            }
+//        }){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params=new HashMap<String, String>();
+//                params.put("emaila",emailass);
+//                return params;
+//            }
+//        };
+//        requesthandler.getInstance(getContext()).addToRequestQueue(str);
+//    }
 
     @Override
     public void onClick(View view) {
@@ -240,5 +249,64 @@ public class sadmin_act extends Fragment implements View.OnClickListener {
                Toast.makeText(getContext(),"btn clicked",Toast.LENGTH_SHORT).show();
                deleteass();
             }*/
+    }
+
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(ref!=null){
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        filterdlist=new ArrayList<>();
+                        for(DataSnapshot data:snapshot.getChildren()){
+                            assure as=data.getValue(assure.class);
+                            as.setId(data.getKey());
+                            //data.getValue(assure.class).setId(data.getKey());
+                            //Toast.makeText(getContext(),as.getId(),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(),data.getValue(assure.class).getId(),Toast.LENGTH_LONG).show();
+                            if(as.getActivate()==0){
+                            filterdlist.add(as);
+                                Toast.makeText(getContext(),as.getId()+" added",Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                        myadapter_act_del adpt= new myadapter_act_del(filterdlist);
+                        recyclerView.setAdapter(adpt);
+                        adpt.setOnItemClickListener(new myadapter_act_del.OnItemClickListener(){
+                            @Override
+                            public void ondelete(int position) {
+                                String id =filterdlist.get(position).getId();
+                                ref.child(id).removeValue();
+                                Toast.makeText(getContext(),"Compte supprime",Toast.LENGTH_SHORT).show();
+                                filterdlist.remove(position);
+                                adpt.notifyItemRemoved(position);
+                            }
+
+                            public void onactivate(int position) {
+                                String id =filterdlist.get(position).getId();
+                                ref.child(id).child("activate").setValue(1);
+                                Toast.makeText(getContext(),"Compte active",Toast.LENGTH_SHORT).show();
+                                filterdlist.remove(position);
+                                adpt.notifyItemRemoved(position);
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        //adpt.startListening();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        //adpt.stopListening();
     }
 }

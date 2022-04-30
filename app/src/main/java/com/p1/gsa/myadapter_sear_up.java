@@ -1,5 +1,6 @@
 package com.p1.gsa;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,14 +71,14 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull myviewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.noma.setText(asslist.get(position).getNoma());
         holder.emaila.setText(asslist.get(position).getEmaila());
         //holder.adressea.setText(asslist.get(position).getAdressea());
         //holder.agencea.setText(asslist.get(position).getAgencea());
         //holder.martyv.setText(asslist.get(position).getMartyv());
         //holder.numpolice.setText(asslist.get(position).getNumpolice());
-        holder.immatriv.setText(asslist.get(position).getImmatriv());
+        //holder.immatriv.setText(asslist.get(position).getImmatriv());
         holder.prenoma.setText(asslist.get(position).getPrenoma());
         //holder.datevala.setText(asslist.get(position).getDatevala());
         //holder.datevald.setText(asslist.get(position).getDatevald());
@@ -81,24 +88,28 @@ public class myadapter_sear_up extends RecyclerView.Adapter<myadapter_sear_up.my
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment nextfrag = new sadmin_sear_up_1ass();
+
+                //asslist.get(position).geto
+                Fragment nextfrag = new sadmin_sear_up_1ass(asslist.get(position).getId(),asslist.get(position).getActivate(),
+                        asslist.get(position).getPrenoma(),asslist.get(position).getNoma(),
+                        asslist.get(position).getAdressea(), asslist.get(position).getEmaila());
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container,nextfrag).addToBackStack(null)
                         .commit();
 
-                int position=holder.getAdapterPosition();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("noma",asslist.get(position).getNoma());
-                bundle.putString("adressea",asslist.get(position).getAdressea());
-                bundle.putString("steassurance",asslist.get(position).getSteassurance());
-                bundle.putString("martyv",asslist.get(position).getMartyv());
-                bundle.putString("numpolice",asslist.get(position).getNumpolice());
-                bundle.putString("immatriv",asslist.get(position).getImmatriv());
-                bundle.putString("emaila",asslist.get(position).getEmaila());
-                bundle.putString("datevala",asslist.get(position).getDatevala());
-                bundle.putString("datevald",asslist.get(position).getDatevald());
-                nextfrag.setArguments(bundle);
+//                int position=holder.getAdapterPosition();
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString("noma",asslist.get(position).getNoma());
+//                bundle.putString("adressea",asslist.get(position).getAdressea());
+//                bundle.putString("steassurance",asslist.get(position).getSteassurance());
+//                bundle.putString("martyv",asslist.get(position).getMartyv());
+//                bundle.putString("numpolice",asslist.get(position).getNumpolice());
+//                bundle.putString("immatriv",asslist.get(position).getImmatriv());
+//                bundle.putString("emaila",asslist.get(position).getEmaila());
+//                bundle.putString("datevala",asslist.get(position).getDatevala());
+//                bundle.putString("datevald",asslist.get(position).getDatevald());
+//                nextfrag.setArguments(bundle);
             }
         });
     }

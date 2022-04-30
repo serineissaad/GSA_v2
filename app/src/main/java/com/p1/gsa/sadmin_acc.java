@@ -46,18 +46,8 @@ public class sadmin_acc extends Fragment {
     Button btnlogout;
     Button btnaddadmin;
     public sadmin_acc() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment sadmin_acc.
-     */
-    // TODO: Rename and change types and number of parameters
     public static sadmin_acc newInstance(String param1, String param2) {
         sadmin_acc fragment = new sadmin_acc();
         Bundle args = new Bundle();
@@ -113,6 +103,7 @@ public class sadmin_acc extends Fragment {
         btnlogout=v.findViewById(R.id.btnlogout);
         btnaddadmin=v.findViewById(R.id.btnaddadmin);
         btnlogout.setOnClickListener(this::onClick);
+        btnaddadmin.setOnClickListener(this::onClick);
 
         //email.setText(sharedrefmanager.getInstance(getContext()).getemaila());
         //nom.setText(sharedrefmanager.getInstance(getContext()).getnoma());
@@ -137,8 +128,8 @@ public class sadmin_acc extends Fragment {
         }
 
         if(view==btnaddadmin){
-            Intent intent=new Intent(view.getContext(),signupas.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent=new Intent(view.getContext(),signupa.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
     }

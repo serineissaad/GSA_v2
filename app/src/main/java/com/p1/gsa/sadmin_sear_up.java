@@ -1,7 +1,10 @@
 package com.p1.gsa;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +21,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,27 +34,26 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class sadmin_sear_up extends Fragment {
+public class sadmin_sear_up extends Fragment implements View.OnClickListener{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     RecyclerView recyclerView2;
     myadapter_sear_up adpt2;
-    EditText searchtxt;
+    SearchView searchtxt;
     ArrayList<assure> filterdlist;
 
-    // TODO: Rename and change types of parameters
+    DatabaseReference ref;
+
     private String mParam1;
     private String mParam2;
 
     public sadmin_sear_up() {
-        // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
+
     public static sadmin_sear_up newInstance(String param1, String param2) {
         sadmin_sear_up fragment = new sadmin_sear_up();
         Bundle args = new Bundle();
@@ -68,17 +75,18 @@ public class sadmin_sear_up extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_sadmin_sear_up, container, false);
 
         recyclerView2=v.findViewById(R.id.recyclerView2);
         searchtxt=v.findViewById(R.id.sear);
-        /*recyclerView2.setHasFixedSize(true);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView2.setAdapter(adpt2);*/
+
+        ref = FirebaseDatabase.getInstance().getReference().child("assure");
+
         filterdlist=new ArrayList<assure>();
 
-        searchtxt.addTextChangedListener(new TextWatcher() {
+        recyclerView2.setOnClickListener((View.OnClickListener) this);
+
+        /*searchtxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -92,16 +100,9 @@ public class sadmin_sear_up extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 filter(editable.toString());
-                /*recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
-                adpt2=new myadapter(filterdlist);
-              //adpt2.filterList(filterdlist);
-
-                recyclerView2.setAdapter(adpt2);*/
-              //  adpt2.notifyDataSetChanged();
                 buildRecyclerView();
             }
-
-        });
+        });*/
         return v;
     }
 
@@ -130,7 +131,7 @@ public class sadmin_sear_up extends Fragment {
                                     String immatriv= String.valueOf(obj.getInt("immatriv"));
                                     String agencea=obj.getString("agencea");
                                     String emaila=obj.getString("emaila");
-                                    assure ass=new assure(noma,prenoma,adressea,steassurance,numpolice,datevald,datevala,martyv,immatriv,agencea,emaila);
+                                    assure ass=new assure(prenoma,noma,adressea,emaila);
                                     String t=text.toLowerCase();
                                         if (noma.toLowerCase().contains(t)||emaila.toLowerCase().contains(t)||
                                                 prenoma.toLowerCase().contains(t)||agencea.toLowerCase().contains(t)||
@@ -149,22 +150,89 @@ public class sadmin_sear_up extends Fragment {
                         }catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        buildRecyclerView();
+                        //buildRecyclerView();
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(),"Error listener",Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getContext().getApplicationContext(), error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
         requesthandler.getInstance(getContext()).addToRequestQueue(str);
     }
 
-    private void buildRecyclerView() {
-        recyclerView2.setHasFixedSize(true);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
-        adpt2=new myadapter_sear_up(filterdlist);
-        recyclerView2.setAdapter(adpt2);}
+//    private void buildRecyclerView() {
+//        recyclerView2.setHasFixedSize(true);
+//        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+//        adpt2=new myadapter_sear_up(filterdlist);
+//        recyclerView2.setAdapter(adpt2);}
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if(ref!=null){
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        filterdlist=new ArrayList<>();
+                        for(DataSnapshot data:snapshot.getChildren()){
+                            assure as=data.getValue(assure.class);
+                            as.setId(data.getKey());
+                            //data.getValue(assure.class).setId(data.getKey());
+                            //Toast.makeText(getContext(),as.getId(),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(),data.getValue(assure.class).getId(),Toast.LENGTH_LONG).show();
+                            filterdlist.add(as);
+                        }
+                        myadapter_sear_up adpt= new myadapter_sear_up(filterdlist);
+                        recyclerView2.setAdapter(adpt);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        if(searchtxt!=null){
+            searchtxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    search(newText);
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void search(String t){
+        ArrayList<assure> mylist=new ArrayList<>();
+        for(assure object: filterdlist){
+            if (object.getNoma().toLowerCase().contains(t)||object.getEmaila().toLowerCase().contains(t)||
+                    object.getPrenoma().toLowerCase().contains(t)|| object.getAdressea().toLowerCase().contains(t)){
+                mylist.add(object);
+            }
+            else{
+                Toast.makeText(getContext(),"Pas d'assure avec les criteres demandes",Toast.LENGTH_LONG).show();
+            }
+            myadapter_sear_up adpt3=new myadapter_sear_up(mylist);
+            recyclerView2.setAdapter(adpt3);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == recyclerView2){
+
+        }
+    }
 }

@@ -15,18 +15,45 @@
         android:focusable="true"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/img"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/ic_account_as" />
+            android:layout_height="wrap_content"
+            android:id="@+id/head"
+            android:padding="10dp"
+            android:background="@color/black">
 
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/ic_account_as" />
+            <ImageView
+                android:id="@+id/imgactivate"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_toRightOf="@+id/img"
+                android:layout_marginLeft="300dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/ic_activate" />
+         />
+        <TextView
+            android:id="@+id/etat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/img"
+            android:layout_marginTop="15dp"
+            android:text="etat"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+    </RelativeLayout>
         <TextView
             android:id="@+id/noma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/img"
+            android:layout_below="@+id/head"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="15dp"
@@ -37,7 +64,7 @@
             android:id="@+id/prenoma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/img"
+            android:layout_below="@id/head"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/noma"
@@ -99,7 +126,7 @@
             android:textSize="25dp"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/martyv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

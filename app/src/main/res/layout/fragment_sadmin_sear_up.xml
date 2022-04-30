@@ -17,10 +17,12 @@
         android:orientation="vertical"
         tools:context="com.codinginflow.searchfunctionalityexample.MainActivity">
 
-        <EditText
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/sear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:padding="10dp"
+            app:queryHint="Rechercher"
             android:layout_margin="20dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -28,7 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"
-            android:padding="4dp"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:scrollbars="vertical" />
 
     </LinearLayout>
